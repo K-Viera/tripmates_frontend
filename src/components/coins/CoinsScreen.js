@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, ActivityIndicator, StyleSheet, FlatList} from 'react-native';
 import Http from 'tripmates_frontend/src/libs/http';
-
+import Colors from '../../res/colors';
 import CoinsItem from './CoinsItem';
 
 class CoinsScreen extends Component {
@@ -39,7 +39,7 @@ class CoinsScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
+  container: {flex: 1, backgroundColor: Colors.charade},
   btn: {padding: 8, backgroundColor: 'blue', borderRadius: 8, margin: 16},
   btnText: {color: '#fff', textAlign: 'center'},
   loader: {marginTop: 60},
