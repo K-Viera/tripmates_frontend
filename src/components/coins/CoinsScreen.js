@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
+import {View, ActivityIndicator, StyleSheet, FlatList} from 'react-native';
 import Http from 'tripmates_frontend/src/libs/http';
 
 import CoinsItem from './CoinsItem';
@@ -7,13 +7,15 @@ import CoinsItem from './CoinsItem';
 class CoinsScreen extends Component {
   state = {
     coins: [],
+    loading: false,
   };
 
   componentDidMount = async () => {
+    this.setState({loading: true});
     const coins = await Http.instance.get(
       'https://api.coinlore.net/api/tickers/',
     );
-    this.setState({coins: coins.data});
+    this.setState({coins: coins.data, loading: false});
   };
 
   handlePress = () => {
@@ -22,9 +24,12 @@ class CoinsScreen extends Component {
   };
 
   render() {
-    const {coins} = this.state;
+    const {coins, loading} = this.state;
     return (
       <View style={styles.container}>
+        {loading ? (
+          <ActivityIndicator color="black" size="large" style={styles.loader} />
+        ) : null}
         <FlatList
           data={coins}
           renderItem={({item}) => <CoinsItem item={item} />}
@@ -34,8 +39,9 @@ class CoinsScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'red'},
+  container: {flex: 1, backgroundColor: 'white'},
   btn: {padding: 8, backgroundColor: 'blue', borderRadius: 8, margin: 16},
   btnText: {color: '#fff', textAlign: 'center'},
+  loader: {marginTop: 60},
 });
 export default CoinsScreen;
