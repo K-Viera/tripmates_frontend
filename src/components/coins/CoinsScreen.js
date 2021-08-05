@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import Http from 'tripmates_frontend/src/libs/http';
+
+import CoinsItem from './CoinsItem';
+
 class CoinsScreen extends Component {
   state = {
     coins: [],
@@ -24,7 +27,7 @@ class CoinsScreen extends Component {
       <View style={styles.container}>
         <FlatList
           data={coins}
-          renderItem={({item}) => <Text>{item.name}</Text>}
+          renderItem={({item}) => <CoinsItem item={item} />}
         />
       </View>
     );
