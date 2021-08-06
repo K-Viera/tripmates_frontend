@@ -1,17 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, Pressable, Image, StyleSheet} from 'react-native';
+import ArrowDown from '../../assets/arrow_down.png';
+import ArrowUp from '../../assets/arrow_up.png';
 
-const CoinsItem = ({item}) => {
+const CoinsItem = ({item, onPress}) => {
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.symbolText}>{item.symbol}</Text>
         <Text style={styles.nameText}>{item.name}</Text>
       </View>
       <View style={styles.row}>
         <Text style={styles.nameText}>{item.percent_change_1h}</Text>
+        <Image
+          style={styles.imgIcon}
+          source={item.percent_change_1h > 0 ? ArrowUp : ArrowDown}
+        />
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -37,6 +43,10 @@ const styles = StyleSheet.create({
   percentText: {
     color: 'white',
     fontSize: 12,
+  },
+  imgIcon: {
+    width: 22,
+    height: 22,
   },
 });
 
