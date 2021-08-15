@@ -19,6 +19,9 @@ class Http {
 
   post = async (url, body, headers) => {
     try {
+      console.log(url);
+      console.log(body);
+      console.log(headers);
       let req = await fetch(url, {
         method: 'POST',
         headers,

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
-
+import Http from '../../libs/http';
+import axios from 'axios';
 class LoginScreen extends Component {
   state = {
     email: '',
@@ -16,9 +17,15 @@ class LoginScreen extends Component {
     this.setState({password});
   };
 
-  login = () => {
+  login = async () => {
     console.log('Login');
-    console.log(this.state);
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/login';
+
+    const response = await axios.post(url, this.state);
+
+    console.log(response.data.mensaje);
+
+
   };
 
   handlePress = () => {

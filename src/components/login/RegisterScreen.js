@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
+import Http from '../../libs/http';
+import axios from 'axios';
 
 class RegisterScreen extends Component {
   state = {
@@ -11,9 +13,13 @@ class RegisterScreen extends Component {
     city: '',
   };
 
-  registrar = () => {
+  registrar = async () => {
     console.log('Register');
     console.log(this.state);
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
+    const response = await axios.post(url, this.state);
+
+    console.log(response.data);
   };
 
   render() {
