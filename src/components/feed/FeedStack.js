@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
-import SplashScreen from './SplashScreen';
+import ProfileScreen from './ProfileScreen';
 import Colors from '../../res/colors';
 
 const Stack = createStackNavigator();
@@ -18,7 +18,7 @@ const FeedStack = () => {
       }}>
       <Stack.Screen name="Home" component={HomeScreen} />
 
-      <Stack.Screen name="Register" component={SplashScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };

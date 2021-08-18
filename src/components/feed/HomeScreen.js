@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   linkText: {
     opacity: 0.9,
     textAlign: 'center',
-    textDecorationLine: 'underline',
     fontStyle: 'italic',
   },
 });

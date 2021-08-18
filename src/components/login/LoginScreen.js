@@ -1,9 +1,61 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import storage from '../../libs/storage';
-class LoginScreen extends Component {
+import {useLogin} from '../../libs/LoginProvider';
+
+const LoginScreen = ({props}) => {
+  const {setIsLoggedIn, setProfile} = useLogin();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const login = async () => {
+    console.log('Login');
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/login';
+
+    const response = await axios.post(url, {email, password});
+
+    console.log(response.data.mensaje);
+
+    if (response.status === 200) {
+      await storage.instance.store('access-token', response.data.token);
+      setIsLoggedIn(true);
+    } else {
+    }
+  };
+
+  const handlePress = () => {
+    props.navigation.navigate('Register');
+  };
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        onChangeText={text => setEmail(text)}
+        value={email}
+        placeholder="Correo Electronico"
+        style={styles.inputText}
+      />
+
+      <TextInput
+        onChangeText={text => setPassword(text)}
+        value={password}
+        placeholder="Contraseña"
+        style={styles.inputText}
+        secureTextEntry
+      />
+
+      <Button title={'Ingresar'} onPress={login} style={styles.btn} />
+
+      <Text style={styles.linkText} onPress={handlePress}>
+        Registrate Ahora!!
+      </Text>
+    </View>
+  );
+};
+
+/*class LoginScreen extends Component {
   state = {
     email: '',
     password: '',
@@ -26,7 +78,7 @@ class LoginScreen extends Component {
     console.log(response.data.mensaje);
 
     if (response.status === 200) {
-      storage.instance.store('access-token', response.data.token);
+      await storage.instance.store('access-token', response.data.token);
     } else {
     }
   };
@@ -50,6 +102,7 @@ class LoginScreen extends Component {
           value={this.state.password}
           placeholder="Contraseña"
           style={styles.inputText}
+          secureTextEntry
         />
 
         <Button title={'Ingresar'} onPress={this.login} style={styles.btn} />
@@ -60,7 +113,7 @@ class LoginScreen extends Component {
       </View>
     );
   }
-}
+}*/
 
 const styles = StyleSheet.create({
   container: {

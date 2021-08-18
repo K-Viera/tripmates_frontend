@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
 
-class SplashScreen extends Component {
+class ProfileScreen extends Component {
   state = {
     email: '',
     password: '',
@@ -11,7 +11,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.linkText}>TripMates SplashScreen</Text>
+        <Text style={styles.linkText}>My Profile</Text>
       </View>
     );
   }
@@ -42,9 +42,8 @@ const styles = StyleSheet.create({
   linkText: {
     opacity: 0.9,
     textAlign: 'center',
-    textDecorationLine: 'underline',
     fontStyle: 'italic',
   },
 });
 
-export default SplashScreen;
+export default ProfileScreen;
