@@ -4,7 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeedStack from './FeedStack';
-import LoginStack from '../login/LoginStack';
 
 const Tabs = createBottomTabNavigator();
 

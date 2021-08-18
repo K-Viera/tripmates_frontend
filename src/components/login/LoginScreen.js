@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
 
-class ProfileScreen extends Component {
+class FeedSearch extends Component {
   state = {
     email: '',
     password: '',
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default FeedSearch;

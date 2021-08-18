@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
-import Http from '../../libs/http';
 import axios from 'axios';
 
 class RegisterScreen extends Component {
