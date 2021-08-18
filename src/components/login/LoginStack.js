@@ -11,10 +11,11 @@ const LoginStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.blackPearl,
-          shadowColor: Colors.blackPearl,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
         },
-        headerTintColor: Colors.white,
+        headerShown: false,
+        headerTintColor: Colors.blackPearl,
       }}>
       <Stack.Screen name="Login" component={LoginScreen} />
 

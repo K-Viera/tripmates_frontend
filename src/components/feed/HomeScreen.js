@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
-
-class SplashScreen extends Component {
+import axios from 'axios';
+class HomeScreen extends Component {
   state = {
     email: '',
     password: '',
@@ -11,7 +11,7 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.linkText}>TripMates SplashScreen</Text>
+        <Text style={styles.linkText}>Bienvenido</Text>
       </View>
     );
   }
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SplashScreen;
+export default HomeScreen;

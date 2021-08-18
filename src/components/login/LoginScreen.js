@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
-import Http from '../../libs/http';
 import axios from 'axios';
+import storage from '../../libs/storage';
 class LoginScreen extends Component {
   state = {
     email: '',
@@ -25,7 +25,10 @@ class LoginScreen extends Component {
 
     console.log(response.data.mensaje);
 
-
+    if (response.status === 200) {
+      storage.instance.store('access-token', response.data.token);
+    } else {
+    }
   };
 
   handlePress = () => {
