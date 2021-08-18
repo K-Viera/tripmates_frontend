@@ -21,6 +21,7 @@ const LoginScreen = props => {
     if (response.status === 200) {
       await storage.instance.store('access-token', response.data.token);
       setIsLoggedIn(true);
+      console.log('Login');
     } else {
     }
   };

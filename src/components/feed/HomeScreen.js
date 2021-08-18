@@ -3,11 +3,14 @@ import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
+import storage from '../../libs/storage';
 
 const HomeScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
   const handleLogout = () => {
+    console.log('Logout');
+    storage.instance.remove('access-token');
     setIsLoggedIn(false);
   };
 

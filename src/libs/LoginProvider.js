@@ -30,10 +30,15 @@ const LoginProvider = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (storage.instance.get('access-token') != undefined) {
+    verifiyLogin();
+  }, []);
+
+  const verifiyLogin = async () => {
+    if ((await storage.instance.get('access-token')) != undefined) {
+      console.log('Login Store');
       setIsLoggedIn(true);
     }
-  }, []);
+  };
 
   return (
     <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
