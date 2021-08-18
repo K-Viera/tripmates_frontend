@@ -14,7 +14,6 @@ const LoginStack = () => {
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
         },
-        headerShown: false,
         headerTintColor: Colors.blackPearl,
       }}>
       <Stack.Screen name="Login" component={LoginScreen} />

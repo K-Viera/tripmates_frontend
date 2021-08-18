@@ -5,8 +5,8 @@ import axios from 'axios';
 import storage from '../../libs/storage';
 import {useLogin} from '../../libs/LoginProvider';
 
-const LoginScreen = ({props}) => {
-  const {setIsLoggedIn, setProfile} = useLogin();
+const LoginScreen = props => {
+  const {setIsLoggedIn} = useLogin();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

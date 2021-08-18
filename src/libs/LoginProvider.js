@@ -1,4 +1,11 @@
-import React, {createContext, useContext, Component, useState} from 'react';
+import React, {
+  createContext,
+  useContext,
+  Component,
+  useState,
+  useEffect,
+} from 'react';
+import storage from './storage';
 
 const LoginContext = React.createContext();
 
@@ -21,6 +28,12 @@ const LoginContext = React.createContext();
 
 const LoginProvider = ({children}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (storage.instance.get('access-token') != undefined) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>

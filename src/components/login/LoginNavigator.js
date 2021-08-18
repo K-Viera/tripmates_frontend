@@ -14,6 +14,7 @@ const LoginNavigator = () => {
         screenOptions={{
           tintColor: Colors.blackPearl,
           showIcon: true,
+          headerShown: false,
           style: {
             backgroundColor: Colors.blackPearl,
           },

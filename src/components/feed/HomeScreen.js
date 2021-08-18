@@ -1,21 +1,25 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
-class HomeScreen extends Component {
-  state = {
-    email: '',
-    password: '',
+import {useLogin} from '../../libs/LoginProvider';
+
+const HomeScreen = props => {
+  const {setIsLoggedIn} = useLogin();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.linkText}>Bienvenido</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.linkText}>Bienvenido</Text>
+      <Text style={styles.linkText} onPress={handleLogout}>
+        Cerrar Sesión
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
