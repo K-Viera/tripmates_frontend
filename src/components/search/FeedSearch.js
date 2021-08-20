@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 import Colors from '../../res/colors';
 
 class FeedSearch extends Component {
@@ -11,7 +11,7 @@ class FeedSearch extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.linkText}>My Profile</Text>
+        <TextInput style={styles.inputText} placeholder="Search..." />
       </View>
     );
   }

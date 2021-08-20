@@ -1,11 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './HomeScreen';
 import Colors from '../../res/colors';
+import ChatScreen from './ChatScreen';
 
 const Stack = createStackNavigator();
 
-const FeedStack = () => {
+const ChatStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -15,9 +15,9 @@ const FeedStack = () => {
         },
         headerTintColor: Colors.blackPearl,
       }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Chats" component={ChatScreen} />
     </Stack.Navigator>
   );
 };
 
-export default FeedStack;
+export default ChatStack;

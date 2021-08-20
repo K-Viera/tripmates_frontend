@@ -1,11 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './HomeScreen';
+import ProfileScreen from './ProfileScreen';
 import Colors from '../../res/colors';
 
 const Stack = createStackNavigator();
 
-const FeedStack = () => {
+const ProfileStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -15,9 +15,9 @@ const FeedStack = () => {
         },
         headerTintColor: Colors.blackPearl,
       }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };
 
-export default FeedStack;
+export default ProfileStack;
