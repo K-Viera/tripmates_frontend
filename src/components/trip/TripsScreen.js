@@ -3,10 +3,9 @@ import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import Colors from '../../res/colors';
 import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
-import FeedSearch from '../search/FeedSearch';
 import TripItem from '../trip/TripItem';
 import axios from 'axios';
-const HomeScreen = props => {
+const TripsScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
   const [loading, setLoading] = useState([]);
@@ -45,8 +44,6 @@ const HomeScreen = props => {
 
   return (
     <View style={styles.container}>
-      <FeedSearch />
-
       {loading ? (
         <ActivityIndicator
           style={styles.loader}
@@ -95,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default TripsScreen;

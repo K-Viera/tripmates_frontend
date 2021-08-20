@@ -11,8 +11,9 @@ class TripItem extends Component {
     const {item} = this.props;
     return (
       <Pressable style={styles.container}>
+        <Text style={styles.symbolText}>{item.user}</Text>
         <View style={styles.row}>
-          <Text style={styles.symbolText}>{item.from}</Text>
+          <Text style={styles.nameText}>{item.from}</Text>
           <Text style={styles.nameText}>{item.to}</Text>
         </View>
       </Pressable>
@@ -22,11 +23,11 @@ class TripItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 16,
     borderBottomColor: Colors.zircon,
     borderBottomWidth: 1,
+    height: 100,
   },
   row: {
     flexDirection: 'row',

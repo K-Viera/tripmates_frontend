@@ -4,6 +4,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeedStack from './FeedStack';
+import TripsStack from '../trip/TripsStack';
+import SearchStack from '../search/SearchStack';
+import ChatStack from '../chat/ChatStack';
+import ProfileStack from '../profile/ProfileStack';
 
 const Tabs = createBottomTabNavigator();
 
@@ -35,7 +39,7 @@ const FeedNavigator = () => {
         />
         <Tabs.Screen
           name="Buscar"
-          component={FeedStack}
+          component={SearchStack}
           options={{
             tabBarIcon: ({tintColor}) => (
               <Icon name="search" size={20} style={{color: tintColor}} />
@@ -44,7 +48,7 @@ const FeedNavigator = () => {
         />
         <Tabs.Screen
           name="Viajar"
-          component={FeedStack}
+          component={TripsStack}
           options={{
             tabBarIcon: ({tintColor}) => (
               <Icon name="map-marker" size={20} style={{color: tintColor}} />
@@ -53,7 +57,7 @@ const FeedNavigator = () => {
         />
         <Tabs.Screen
           name="Chat"
-          component={FeedStack}
+          component={ChatStack}
           options={{
             tabBarIcon: ({tintColor}) => (
               <Icon name="whatsapp" size={20} style={{color: tintColor}} />
@@ -62,7 +66,7 @@ const FeedNavigator = () => {
         />
         <Tabs.Screen
           name="Perfil"
-          component={FeedStack}
+          component={ProfileStack}
           options={{
             tabBarIcon: ({tintColor}) => (
               <Icon name="user" size={20} style={{color: tintColor}} />
