@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  SafeAreaView,
+} from 'react-native';
 import Colors from '../../res/colors';
 import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
@@ -44,7 +50,7 @@ const HomeScreen = props => {
   const handlePress = trip => {};
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FeedSearch />
 
       {loading ? (
@@ -59,10 +65,10 @@ const HomeScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <TripItem item={item} onPress={handlePress(item)} />
+          <TripItem item={item} onPress={() => handlePress(item)} />
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
