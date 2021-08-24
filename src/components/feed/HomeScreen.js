@@ -10,8 +10,8 @@ import Colors from '../../res/colors';
 import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
 import FeedSearch from '../search/FeedSearch';
-import TripItem from '../trip/TripItem';
 import axios from 'axios';
+import UserItem from './UserItem';
 const HomeScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
@@ -65,7 +65,7 @@ const HomeScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <TripItem item={item} onPress={() => handlePress(item)} />
+          <UserItem item={item} onPress={() => handlePress(item)} />
         )}
       />
     </SafeAreaView>

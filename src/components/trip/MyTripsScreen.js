@@ -5,7 +5,7 @@ import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
 import TripItem from '../trip/TripItem';
 import axios from 'axios';
-const TripsScreen = props => {
+const MyTripsScreen = props => {
   const [loading, setLoading] = useState([]);
   const [trips, setTrips] = useState([]);
 
@@ -16,7 +16,7 @@ const TripsScreen = props => {
   const getFeed = async () => {
     setLoading(true);
 
-    const url = 'https://still-shore-58656.herokuapp.com/api/trips/';
+    const url = 'https://still-shore-58656.herokuapp.com/api/trips/mines';
     const token = await storage.instance.get('access-token');
 
     const config = {
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TripsScreen;
+export default MyTripsScreen;
