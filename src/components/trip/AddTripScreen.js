@@ -3,24 +3,22 @@ import {View, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
 
-class RegisterScreen extends Component {
+class AddTripScreen extends Component {
   state = {
-    email: '',
-    password: '',
-    name: '',
-    phone: '',
-    city: '',
+    from: '',
+    to: '',
+    beginDate: '',
+    finishDate: '',
+    Interests: '',
   };
 
-  registrar = async () => {
-    console.log('Register');
-    console.log(this.state);
-    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
+  addTrip = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
     const response = await axios.post(url, this.state);
 
     console.log(response.data);
 
-    Alert.alert('Registro', response.data.message, [
+    Alert.alert('Viaje', response.data.message, [
       {
         text: 'Ok',
         onPress: () =>
@@ -30,46 +28,46 @@ class RegisterScreen extends Component {
   };
 
   login = () => {
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('My Trips');
   };
 
   render() {
     return (
       <View style={styles.container}>
         <TextInput
-          onChangeText={text => this.setState({email: text})}
-          value={this.state.email}
+          onChangeText={text => this.setState({from: text})}
+          value={this.state.from}
           placeholder="Correo Electronico"
           style={styles.inputText}
         />
         <TextInput
-          onChangeText={text => this.setState({password: text})}
-          value={this.state.password}
+          onChangeText={text => this.setState({to: text})}
+          value={this.state.to}
           placeholder="Contraseña"
           style={styles.inputText}
         />
         <TextInput
-          onChangeText={text => this.setState({name: text})}
-          value={this.state.name}
+          onChangeText={text => this.setState({beginDate: text})}
+          value={this.state.beginDate}
           placeholder="Nombre"
           style={styles.inputText}
         />
         <TextInput
-          onChangeText={text => this.setState({phone: text})}
-          value={this.state.phone}
+          onChangeText={text => this.setState({finishDate: text})}
+          value={this.state.finishDate}
           placeholder="Telefono"
           style={styles.inputText}
         />
         <TextInput
-          onChangeText={text => this.setState({city: text})}
-          value={this.state.city}
+          onChangeText={text => this.setState({Interests: text})}
+          value={this.state.Interests}
           placeholder="Ciudad"
           style={styles.inputText}
         />
 
         <Button
-          title={'Registrar'}
-          onPress={this.registrar}
+          title={'Guardar Viaje'}
+          onPress={this.addTrip}
           style={styles.btn}
         />
       </View>
@@ -101,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default AddTripScreen;
