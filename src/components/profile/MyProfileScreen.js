@@ -5,7 +5,7 @@ import storage from '../../libs/storage';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
 
-const ProfileScreen = () => {
+const MyProfileScreen = () => {
   const {setIsLoggedIn} = useLogin();
 
   const [user, setUser] = useState({});
@@ -15,7 +15,7 @@ const ProfileScreen = () => {
   }, []);
 
   const getProfile = async () => {
-    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/mine';
     const token = await storage.instance.get('access-token');
 
     const config = {
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default MyProfileScreen;

@@ -1,21 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-  SafeAreaView,
-} from 'react-native';
+import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import Colors from '../../res/colors';
 import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
-import FeedSearch from '../search/FeedSearch';
+import TripItem from '../trip/TripItem';
 import axios from 'axios';
-import UserItem from './UserItem';
-import {Swipeable} from 'react-native-gesture-handler';
-const HomeScreen = props => {
-  const {setIsLoggedIn} = useLogin();
-
+const FavoriteUserScreen = props => {
   const [loading, setLoading] = useState([]);
   const [trips, setTrips] = useState([]);
 
@@ -26,7 +16,7 @@ const HomeScreen = props => {
   const getFeed = async () => {
     setLoading(true);
 
-    const url = 'https://still-shore-58656.herokuapp.com/api/feed';
+    const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
     const token = await storage.instance.get('access-token');
 
     const config = {
@@ -42,28 +32,10 @@ const HomeScreen = props => {
     setLoading(false);
   };
 
-  const handleLogout = () => {
-    console.log('Logout');
-    storage.instance.remove('access-token');
-    setIsLoggedIn(false);
-  };
-
-  const handlePress = trip => {
-    console.log(trip);
-  };
-
-  const LeftAction = item => {
-    return (
-      <View style={styles.leftAction}>
-        <UserItem item={item} onPress={() => handlePress(item)} />
-      </View>
-    );
-  };
+  const handlePress = trip => {};
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FeedSearch />
-
+    <View style={styles.container}>
       {loading ? (
         <ActivityIndicator
           style={styles.loader}
@@ -76,15 +48,10 @@ const HomeScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <Swipeable
-            renderLeftActions={() => LeftAction(item)}
-            onSwipeableLeftOpen={() => console.log('opening')}
-            onPress={() => handlePress(item)}>
-            <UserItem item={item} />
-          </Swipeable>
+          <TripItem item={item} onPress={handlePress(item)} />
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -115,14 +82,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
   },
-  leftAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.zircon,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.carmine,
-    width: '100%',
-  },
 });
 
-export default HomeScreen;
+export default FavoriteUserScreen;

@@ -23,6 +23,7 @@ const LoginNavigator = () => {
               display: 'flex',
             },
           ],
+          tabBarShowLabel: false,
         }}>
         <Tabs.Screen
           name="TripMates"

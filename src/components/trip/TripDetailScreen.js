@@ -1,21 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import React, {Component, useEffect, useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
-import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
-import TripItem from '../trip/TripItem';
 import axios from 'axios';
-const TripsScreen = props => {
-  const [loading, setLoading] = useState([]);
-  const [trips, setTrips] = useState([]);
+import {useLogin} from '../../libs/LoginProvider';
+
+const TripDetailScreen = () => {
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    getFeed();
+    getProfile();
   }, []);
 
-  const getFeed = async () => {
-    setLoading(true);
-
+  const getProfile = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
     const token = await storage.instance.get('access-token');
 
@@ -28,29 +25,12 @@ const TripsScreen = props => {
     };
     const res = await axios(config);
     console.log(res.data.data);
-    setTrips(res.data.data);
-    setLoading(false);
+    setUser(res.data.data);
   };
-
-  const handlePress = trip => {};
 
   return (
     <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator
-          style={styles.loader}
-          color={Colors.blackPearl}
-          size="large"
-        />
-      ) : null}
-
-      <FlatList
-        data={trips}
-        keyExtractor={item => item._id}
-        renderItem={({item}) => (
-          <TripItem item={item} onPress={handlePress(item)} />
-        )}
-      />
+      <Text style={styles.text}>{user.name}</Text>
     </View>
   );
 };
@@ -60,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  inputText: {
+  text: {
     color: Colors.blackPearl,
     textAlign: 'center',
   },
@@ -84,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TripsScreen;
+export default TripDetailScreen;

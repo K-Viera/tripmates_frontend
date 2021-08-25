@@ -27,9 +27,10 @@ const FeedNavigator = () => {
               display: 'flex',
             },
           ],
+          tabBarShowLabel: false,
         }}>
         <Tabs.Screen
-          name="Principal"
+          name="home"
           component={FeedStack}
           options={{
             tabBarIcon: ({tintColor}) => (
@@ -38,7 +39,7 @@ const FeedNavigator = () => {
           }}
         />
         <Tabs.Screen
-          name="Buscar"
+          name="search"
           component={SearchStack}
           options={{
             tabBarIcon: ({tintColor}) => (
@@ -47,7 +48,7 @@ const FeedNavigator = () => {
           }}
         />
         <Tabs.Screen
-          name="Viajar"
+          name="travel"
           component={TripsStack}
           options={{
             tabBarIcon: ({tintColor}) => (
@@ -56,16 +57,16 @@ const FeedNavigator = () => {
           }}
         />
         <Tabs.Screen
-          name="Chat"
+          name="messages"
           component={ChatStack}
           options={{
             tabBarIcon: ({tintColor}) => (
-              <Icon name="whatsapp" size={20} style={{color: tintColor}} />
+              <Icon name="comment-o" size={20} style={{color: tintColor}} />
             ),
           }}
         />
         <Tabs.Screen
-          name="Perfil"
+          name="profile"
           component={ProfileStack}
           options={{
             tabBarIcon: ({tintColor}) => (

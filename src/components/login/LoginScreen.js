@@ -27,7 +27,7 @@ const LoginScreen = props => {
   };
 
   const handlePress = () => {
-    props.navigation.navigate('Register');
+    props.navigation.navigate('Registro');
   };
 
   return (
@@ -45,6 +45,7 @@ const LoginScreen = props => {
         placeholder="Contraseña"
         style={styles.inputText}
         secureTextEntry
+        required
       />
 
       <Button title={'Ingresar'} onPress={login} style={styles.btn} />
@@ -55,66 +56,6 @@ const LoginScreen = props => {
     </View>
   );
 };
-
-/*class LoginScreen extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
-
-  handleEmail = email => {
-    this.setState({email});
-  };
-
-  handlePwd = password => {
-    this.setState({password});
-  };
-
-  login = async () => {
-    console.log('Login');
-    const url = 'https://still-shore-58656.herokuapp.com/api/user/login';
-
-    const response = await axios.post(url, this.state);
-
-    console.log(response.data.mensaje);
-
-    if (response.status === 200) {
-      await storage.instance.store('access-token', response.data.token);
-    } else {
-    }
-  };
-
-  handlePress = () => {
-    this.props.navigation.navigate('Register');
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <TextInput
-          onChangeText={this.handleEmail}
-          value={this.state.email}
-          placeholder="Correo Electronico"
-          style={styles.inputText}
-        />
-
-        <TextInput
-          onChangeText={this.handlePwd}
-          value={this.state.password}
-          placeholder="Contraseña"
-          style={styles.inputText}
-          secureTextEntry
-        />
-
-        <Button title={'Ingresar'} onPress={this.login} style={styles.btn} />
-
-        <Text style={styles.linkText} onPress={this.handlePress}>
-          Registrate Ahora!!
-        </Text>
-      </View>
-    );
-  }
-}*/
 
 const styles = StyleSheet.create({
   container: {
