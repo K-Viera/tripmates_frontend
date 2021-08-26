@@ -30,6 +30,23 @@ const EditProfileScreen = () => {
     setUser(res.data.data);
   };
 
+  const editProfile = async user => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'put',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+      body: {
+        user,
+      },
+    };
+    const res = await axios(config);
+  };
+
   const handleLogout = () => {
     console.log('Logout');
     storage.instance.remove('access-token');

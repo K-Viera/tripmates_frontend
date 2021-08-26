@@ -1,5 +1,5 @@
 import React from 'react';
-import FeedNavigator from './feed/FeedNavigator';
+import FeedNavigator from './FeedNavigator';
 import {useLogin} from '../libs/LoginProvider';
 import LoginStack from './login/LoginStack';
 

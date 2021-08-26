@@ -6,14 +6,14 @@ import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
 
 const TripDetailScreen = () => {
-  const [user, setUser] = useState({});
+  const [trip, setTrip] = useState({});
 
   useEffect(() => {
     getProfile();
   }, []);
 
   const getProfile = async () => {
-    const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
+    const url = 'https://still-shore-58656.herokuapp.com/api/trip/especific';
     const token = await storage.instance.get('access-token');
 
     const config = {
@@ -25,12 +25,12 @@ const TripDetailScreen = () => {
     };
     const res = await axios(config);
     console.log(res.data.data);
-    setUser(res.data.data);
+    setTrip(res.data.data);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{user.name}</Text>
+      <Text style={styles.text}>{trip}</Text>
     </View>
   );
 };

@@ -15,7 +15,7 @@ const ProfileScreen = () => {
   }, []);
 
   const getProfile = async () => {
-    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/profile';
     const token = await storage.instance.get('access-token');
 
     const config = {

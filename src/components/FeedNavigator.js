@@ -3,11 +3,11 @@ import Colors from '../../res/colors';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import FeedStack from './FeedStack';
-import TripsStack from '../trip/TripsStack';
-import SearchStack from '../search/SearchStack';
-import ChatStack from '../chat/ChatStack';
-import ProfileStack from '../profile/ProfileStack';
+import FeedStack from './feed/FeedStack';
+import TripsStack from './trip/TripsStack';
+import SearchStack from './search/SearchStack';
+import ChatStack from './chat/ChatStack';
+import ProfileStack from './profile/ProfileStack';
 
 const Tabs = createBottomTabNavigator();
 
