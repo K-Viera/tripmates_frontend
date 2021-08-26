@@ -1,28 +1,57 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
+import storage from '../../libs/storage';
+import axios from 'axios';
+import {useLogin} from '../../libs/LoginProvider';
 
-class ProfileScreen extends Component {
-  state = {
-    email: '',
-    password: '',
+const ProfileScreen = () => {
+  const {setIsLoggedIn} = useLogin();
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const getProfile = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/profile';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+    setUser(res.data.data);
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.linkText}>My Profile</Text>
-      </View>
-    );
-  }
-}
+  const handleLogout = () => {
+    console.log('Logout');
+    storage.instance.remove('access-token');
+    setIsLoggedIn(false);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{user.name}</Text>
+      <Text style={styles.linkText} onPress={() => handleLogout()}>
+        Cerrar Sesion
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
   },
-  inputText: {
+  text: {
     color: Colors.blackPearl,
     textAlign: 'center',
   },

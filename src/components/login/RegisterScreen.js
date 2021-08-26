@@ -18,18 +18,18 @@ class RegisterScreen extends Component {
     const url = 'https://still-shore-58656.herokuapp.com/api/user/';
     const response = await axios.post(url, this.state);
 
-    console.log(response.data);
+    console.log(response.status);
 
-    Alert.alert('Registro', response.data.message, [
+    Alert.alert('Registro', response.data.mensaje, [
       {
         text: 'Ok',
-        onPress: () =>
-          response.status == 200 ? this.login : console.log('Error'),
+        onPress: () => this.login(),
       },
     ]);
   };
 
   login = () => {
+    console.log('go to login');
     this.props.navigation.navigate('Login');
   };
 
@@ -47,6 +47,7 @@ class RegisterScreen extends Component {
           value={this.state.password}
           placeholder="Contraseña"
           style={styles.inputText}
+          secureTextEntry
         />
         <TextInput
           onChangeText={text => this.setState({name: text})}

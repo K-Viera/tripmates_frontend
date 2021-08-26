@@ -16,7 +16,7 @@ const TripsScreen = props => {
   const getFeed = async () => {
     setLoading(true);
 
-    const url = 'https://still-shore-58656.herokuapp.com/api/trips/';
+    const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
     const token = await storage.instance.get('access-token');
 
     const config = {

@@ -3,11 +3,11 @@ import Colors from '../../res/colors';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import FeedStack from './FeedStack';
-import TripsStack from '../trip/TripsStack';
-import SearchStack from '../search/SearchStack';
-import ChatStack from '../chat/ChatStack';
-import ProfileStack from '../profile/ProfileStack';
+import FeedStack from './feed/FeedStack';
+import TripsStack from './trip/TripsStack';
+import SearchStack from './search/SearchStack';
+import ChatStack from './chat/ChatStack';
+import ProfileStack from './profile/ProfileStack';
 
 const Tabs = createBottomTabNavigator();
 
@@ -27,9 +27,10 @@ const FeedNavigator = () => {
               display: 'flex',
             },
           ],
+          tabBarShowLabel: false,
         }}>
         <Tabs.Screen
-          name="Principal"
+          name="home"
           component={FeedStack}
           options={{
             tabBarIcon: ({tintColor}) => (
@@ -38,7 +39,7 @@ const FeedNavigator = () => {
           }}
         />
         <Tabs.Screen
-          name="Buscar"
+          name="search"
           component={SearchStack}
           options={{
             tabBarIcon: ({tintColor}) => (
@@ -47,7 +48,7 @@ const FeedNavigator = () => {
           }}
         />
         <Tabs.Screen
-          name="Viajar"
+          name="travel"
           component={TripsStack}
           options={{
             tabBarIcon: ({tintColor}) => (
@@ -56,16 +57,16 @@ const FeedNavigator = () => {
           }}
         />
         <Tabs.Screen
-          name="Chat"
+          name="messages"
           component={ChatStack}
           options={{
             tabBarIcon: ({tintColor}) => (
-              <Icon name="whatsapp" size={20} style={{color: tintColor}} />
+              <Icon name="comment-o" size={20} style={{color: tintColor}} />
             ),
           }}
         />
         <Tabs.Screen
-          name="Perfil"
+          name="profile"
           component={ProfileStack}
           options={{
             tabBarIcon: ({tintColor}) => (
