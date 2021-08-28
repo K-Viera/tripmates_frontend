@@ -20,7 +20,7 @@ const FeedNavigator = () => {
           showIcon: true,
           headerShown: false,
           style: {
-            backgroundColor: Colors.blackPearl,
+            backgroundColor: Colors.carmine,
           },
           tabBarStyle: [
             {

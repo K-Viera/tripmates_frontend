@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    borderRadius: 20,
+    margin: 5,
+    height: '70%',
   },
   inputText: {
     color: Colors.blackPearl,

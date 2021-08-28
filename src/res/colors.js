@@ -5,6 +5,9 @@ const colors = {
   picton: '#3c6fc8',
   carmine: '#ef6372',
   white: '#fff',
+  orange: '#FAC361',
+  salmon: '#FFA07A',
+  lightblue: '#5DADE2',
 };
 
 export default colors;

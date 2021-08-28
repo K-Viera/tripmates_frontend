@@ -10,10 +10,10 @@ const FeedStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.orange,
           shadowColor: Colors.white,
         },
-        headerTintColor: Colors.blackPearl,
+        headerTintColor: Colors.white,
       }}>
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
