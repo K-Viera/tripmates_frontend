@@ -1,17 +1,46 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
+import axios from 'axios';
 
 class SearchScreen extends Component {
   state = {
-    email: '',
-    password: '',
+    search: 'DSD',
   };
+  getData = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/searchTrips';
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        condicion: this.state.search,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+  };
+  searchChange = async value => {
+    this.setState({
+      search: value,
+    });
 
+    this.getData();
+  };
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.linkText}>Search</Text>
+        <TextInput
+          onChangeText={this.searchChange}
+          value={this.state.search}
+          placeholder="Search"
+          style={styles.inputText}
+        />
+        <Button
+          title={'Buscar'}
+          // onPress={login}
+          style={styles.btn}
+        />
       </View>
     );
   }
