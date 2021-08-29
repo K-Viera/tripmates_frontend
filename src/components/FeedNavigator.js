@@ -1,5 +1,5 @@
 import React from 'react';
-import Colors from '../../res/colors';
+import Colors from '../res/colors';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
