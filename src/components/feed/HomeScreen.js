@@ -51,8 +51,6 @@ const HomeScreen = props => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FeedSearch />
-
       {loading ? (
         <ActivityIndicator
           style={styles.loader}

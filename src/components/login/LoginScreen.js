@@ -4,6 +4,7 @@ import Colors from '../../res/colors';
 import axios from 'axios';
 import storage from '../../libs/storage';
 import {useLogin} from '../../libs/LoginProvider';
+import colors from '../../res/colors';
 
 const LoginScreen = props => {
   const {setIsLoggedIn} = useLogin();
@@ -32,6 +33,8 @@ const LoginScreen = props => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.tittle}>TripMates</Text>
+
       <TextInput
         onChangeText={text => setEmail(text)}
         value={email}
@@ -50,7 +53,11 @@ const LoginScreen = props => {
       <Button title={'Ingresar'} onPress={login} style={styles.btn} />
 
       <Text style={styles.linkText} onPress={handlePress}>
-        Registrate Ahora!!
+        ¿Olvidaste tu contraseña?
+      </Text>
+
+      <Text style={styles.linkText} onPress={handlePress}>
+        Crear una cuenta
       </Text>
     </View>
   );
@@ -119,15 +126,19 @@ const LoginScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
+    padding: 50,
   },
   inputText: {
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    marginBottom: 20,
     color: Colors.blackPearl,
     textAlign: 'center',
   },
   btn: {
     padding: 8,
-    backgroundColor: Colors.picton,
+    backgroundColor: Colors.white,
     borderRadius: 8,
     margin: 16,
   },
@@ -139,10 +150,19 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   linkText: {
+    marginTop: 25,
     opacity: 0.9,
     textAlign: 'center',
-    textDecorationLine: 'underline',
-    fontStyle: 'italic',
+    fontWeight: 'bold',
+    color: colors.zircon,
+    fontSize: 17,
+  },
+  tittle: {
+    textAlign: 'center',
+    marginBottom: 40,
+    fontSize: 50,
+    color: colors.white,
+    fontWeight: 'bold',
   },
 });
 

@@ -8,6 +8,7 @@ const colors = {
   orange: '#FAC361',
   salmon: '#FFA07A',
   lightblue: '#5DADE2',
+  green: '#2ECC71',
 };
 
 export default colors;

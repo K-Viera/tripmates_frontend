@@ -14,7 +14,15 @@ class UserItem extends Component {
   LeftAction = () => {
     return (
       <View style={styles.leftAction}>
-        <Text style={styles.nameText}>FF</Text>
+        <Text style={styles.nameText}></Text>
+      </View>
+    );
+  };
+
+  RightAction = () => {
+    return (
+      <View style={styles.rightAction}>
+        <Text></Text>
       </View>
     );
   };
@@ -24,6 +32,7 @@ class UserItem extends Component {
     return (
       <Swipeable
         renderLeftActions={this.LeftAction}
+        renderRightActions={this.RightAction}
         onSwipeableLeftOpen={() => console.log('opening')}>
         <View style={styles.container}>
           <Text style={styles.symbolText}>{item.user.name}</Text>
@@ -49,8 +58,11 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.zircon,
+    borderBottomColor: Colors.orange,
     borderBottomWidth: 1,
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    margin: 8,
   },
   row: {
     flexDirection: 'row',
@@ -69,7 +81,15 @@ const styles = StyleSheet.create({
   leftAction: {
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.zircon,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.green,
+    width: '100%',
+  },
+  rightAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
     borderBottomWidth: 1,
     backgroundColor: Colors.carmine,
     width: '100%',
