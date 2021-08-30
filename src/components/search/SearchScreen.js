@@ -86,7 +86,7 @@ class SearchScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.linkText}>Search</Text>
+        <Text style={styles.linkText}>Buscar</Text>
         <TextInput
           onChangeText={value => this.searchChange(value)}
           value={this.state.search}
