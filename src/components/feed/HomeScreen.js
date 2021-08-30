@@ -62,8 +62,6 @@ const HomeScreen = props => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FeedSearch />
-
       {loading ? (
         <ActivityIndicator
           style={styles.loader}
@@ -91,7 +89,7 @@ const HomeScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
   },
   inputText: {
     color: Colors.blackPearl,

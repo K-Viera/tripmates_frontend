@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import { View, StyleSheet, TextInput, Button, Alert, Text } from "react-native";
 import Colors from '../../res/colors';
 import axios from 'axios';
+import colors from "../../res/colors";
 
 class RegisterScreen extends Component {
   state = {
@@ -36,6 +37,8 @@ class RegisterScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.tittle}>Crea una cuenta</Text>
+
         <TextInput
           onChangeText={text => this.setState({email: text})}
           value={this.state.email}
@@ -81,17 +84,20 @@ class RegisterScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
+    padding: 50,
   },
   inputText: {
     color: Colors.blackPearl,
     textAlign: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    marginBottom: 15,
   },
   btn: {
     padding: 8,
     backgroundColor: Colors.picton,
-    borderRadius: 8,
-    margin: 16,
+    borderRadius: 10,
   },
   btnText: {
     color: Colors.blackPearl,
@@ -99,6 +105,13 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 60,
+  },
+  tittle: {
+    textAlign: 'center',
+    marginBottom: 25,
+    fontSize: 30,
+    color: colors.white,
+    fontWeight: 'bold',
   },
 });
 
