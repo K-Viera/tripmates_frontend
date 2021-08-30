@@ -16,6 +16,8 @@ class SearchScreen extends Component {
   state = {
     search: '',
     trips: [],
+    users: [],
+    activeTrips: true,
   };
 
   getTrips = async () => {
@@ -32,9 +34,44 @@ class SearchScreen extends Component {
       trips: res.data.data,
     });
   };
+  getUsers = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/searchUsers';
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        condicion: this.state.search,
+      },
+    };
+    const res = await axios(config);
+    await this.setState({
+      users: res.data.data,
+    });
+  };
+  chooseComponents = async () => {
+    if (this.state.activeTrips == true) {
+      this.getTrips();
+    } else {
+      this.getUsers();
+    }
+    console.log(this.state.activeTrips);
+  };
 
   componentDidMount = async () => {
     this.getTrips();
+  };
+
+  setTrips = async () => {
+    await this.setState({
+      activeTrips: true,
+    });
+    this.chooseComponents();
+  };
+  setUser = async () => {
+    await this.setState({
+      activeTrips: false,
+    });
+    this.chooseComponents();
   };
 
   searchChange = async value => {
@@ -53,19 +90,40 @@ class SearchScreen extends Component {
           placeholder="Search"
           style={styles.inputText}
         />
-        <FlatList
-          data={this.state.trips}
-          keyExtractor={item => item._id}
-          renderItem={({item}) => (
-            <Swipeable
-            // renderLeftActions={() => LeftAction(item)}
-            // onSwipeableLeftOpen={() => console.log('opening')}
-            // onPress={() => handlePress(item)}
-            >
-              <UserItem item={item} />
-            </Swipeable>
-          )}
-        />
+        <View style={styles.alternativeLayoutButtonContainer}>
+          <Button
+            style={styles.btn}
+            onPress={() => this.setTrips()}
+            title="Viajes"
+          />
+          <Button
+            style={styles.btn}
+            onPress={() => this.setUser()}
+            title="Usuarios"
+          />
+        </View>
+        {this.state.activeTrips && (
+          <FlatList
+            data={this.state.trips}
+            keyExtractor={item => item._id}
+            renderItem={({item}) => (
+              <Swipeable
+              // renderLeftActions={() => LeftAction(item)}
+              // onSwipeableLeftOpen={() => console.log('opening')}
+              // onPress={() => handlePress(item)}
+              >
+                <UserItem item={item} />
+              </Swipeable>
+            )}
+          />
+        )}
+        {!this.state.activeTrips && (
+          <FlatList
+            data={this.state.users}
+            keyExtractor={item => item._id}
+            renderItem={({item}) => <Text>hola</Text>}
+          />
+        )}
       </View>
     );
   }
@@ -85,6 +143,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.picton,
     borderRadius: 8,
     margin: 16,
+  },
+  alternativeLayoutButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   btnText: {
     color: Colors.blackPearl,
