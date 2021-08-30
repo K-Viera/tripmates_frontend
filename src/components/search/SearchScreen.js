@@ -7,6 +7,7 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import {Swipeable} from 'react-native-gesture-handler';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import UserItem from '../feed/UserItem';
@@ -16,6 +17,7 @@ class SearchScreen extends Component {
     search: '',
     trips: [],
   };
+
   getTrips = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/searchTrips';
     const config = {
@@ -26,14 +28,19 @@ class SearchScreen extends Component {
       },
     };
     const res = await axios(config);
-    this.trips = res.data.data;
-    console.log(res.data.data);
+    await this.setState({
+      trips: res.data.data,
+    });
   };
+
+  componentDidMount = async () => {
+    this.getTrips();
+  };
+
   searchChange = async value => {
-    this.setState({
+    await this.setState({
       search: value,
     });
-
     this.getTrips();
   };
   render() {
@@ -41,24 +48,20 @@ class SearchScreen extends Component {
       <View style={styles.container}>
         <Text style={styles.linkText}>Search</Text>
         <TextInput
-          onChangeText={this.searchChange}
+          onChangeText={value => this.searchChange(value)}
           value={this.state.search}
           placeholder="Search"
           style={styles.inputText}
-        />
-        <Button
-          title={'Buscar'}
-          // onPress={login}
-          style={styles.btn}
         />
         <FlatList
           data={this.state.trips}
           keyExtractor={item => item._id}
           renderItem={({item}) => (
             <Swipeable
-              renderLeftActions={() => LeftAction(item)}
-              onSwipeableLeftOpen={() => console.log('opening')}
-              onPress={() => handlePress(item)}>
+            // renderLeftActions={() => LeftAction(item)}
+            // onSwipeableLeftOpen={() => console.log('opening')}
+            // onPress={() => handlePress(item)}
+            >
               <UserItem item={item} />
             </Swipeable>
           )}
