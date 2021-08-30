@@ -9,19 +9,17 @@ const Stack = createStackNavigator();
 
 const LoginStack = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: Colors.white,
-            shadowColor: Colors.white,
-          },
-          headerTintColor: Colors.blackPearl,
-        }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Registro" component={RegisterScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.orange,
+        },
+        headerTintColor: Colors.white,
+      }}>
+      <Stack.Screen name="Login" component={LoginScreen} />
+
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
   );
 };
 
