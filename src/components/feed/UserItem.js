@@ -2,31 +2,54 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Colors from '../../res/colors';
 import moment from 'moment';
+import {Swipeable} from 'react-native-gesture-handler';
 
 class UserItem extends Component {
   constructor(props) {
     super(props);
+
+    this.LeftAction = this.LeftAction.bind(this);
   }
+
+  LeftAction = () => {
+    return (
+      <View style={styles.leftAction}>
+        <Text style={styles.nameText}></Text>
+      </View>
+    );
+  };
+
+  RightAction = () => {
+    return (
+      <View style={styles.rightAction}>
+        <Text></Text>
+      </View>
+    );
+  };
 
   render() {
     const {item} = this.props;
-
     return (
-      <View style={styles.container}>
-        <Text style={styles.symbolText}>{item.user.name}</Text>
-        <View style={styles.row}>
-          <Text style={styles.nameText}>{item.from}</Text>
-          <Text style={styles.nameText}>{item.to}</Text>
+      <Swipeable
+        renderLeftActions={this.LeftAction}
+        renderRightActions={this.RightAction}
+        onSwipeableLeftOpen={() => console.log('opening')}>
+        <View style={styles.container}>
+          <Text style={styles.symbolText}>{item.user.name}</Text>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>{item.from}</Text>
+            <Text style={styles.nameText}>{item.to}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>
+              {moment(item.beginDate).format('MMMM DD YYYY')}
+            </Text>
+            <Text style={styles.nameText}>
+              {moment(item.finishDate).format('MMMM DD YYYY')}
+            </Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.nameText}>
-            {moment(item.beginDate).format('MMMM DD YYYY')}
-          </Text>
-          <Text style={styles.nameText}>
-            {moment(item.finishDate).format('MMMM DD YYYY')}
-          </Text>
-        </View>
-      </View>
+      </Swipeable>
     );
   }
 }
@@ -35,8 +58,11 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.zircon,
+    borderBottomColor: Colors.orange,
     borderBottomWidth: 1,
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    margin: 8,
   },
   row: {
     flexDirection: 'row',
@@ -51,6 +77,22 @@ const styles = StyleSheet.create({
     color: Colors.blackPearl,
     fontSize: 14,
     marginRight: 16,
+  },
+  leftAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.green,
+    width: '100%',
+  },
+  rightAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.carmine,
+    width: '100%',
   },
 });
 
