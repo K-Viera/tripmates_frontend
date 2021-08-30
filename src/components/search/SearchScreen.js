@@ -1,13 +1,22 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
+import UserItem from '../feed/UserItem';
 
 class SearchScreen extends Component {
   state = {
-    search: 'DSD',
+    search: '',
+    trips: [],
   };
-  getData = async () => {
+  getTrips = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/searchTrips';
     const config = {
       method: 'get',
@@ -17,6 +26,7 @@ class SearchScreen extends Component {
       },
     };
     const res = await axios(config);
+    this.trips = res.data.data;
     console.log(res.data.data);
   };
   searchChange = async value => {
@@ -24,7 +34,7 @@ class SearchScreen extends Component {
       search: value,
     });
 
-    this.getData();
+    this.getTrips();
   };
   render() {
     return (
@@ -40,6 +50,18 @@ class SearchScreen extends Component {
           title={'Buscar'}
           // onPress={login}
           style={styles.btn}
+        />
+        <FlatList
+          data={this.state.trips}
+          keyExtractor={item => item._id}
+          renderItem={({item}) => (
+            <Swipeable
+              renderLeftActions={() => LeftAction(item)}
+              onSwipeableLeftOpen={() => console.log('opening')}
+              onPress={() => handlePress(item)}>
+              <UserItem item={item} />
+            </Swipeable>
+          )}
         />
       </View>
     );
