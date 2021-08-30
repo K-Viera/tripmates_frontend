@@ -3,29 +3,17 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Colors from '../../res/colors';
 import moment from 'moment';
 
-class UserItem extends Component {
+class ProfileItem extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     const {item} = this.props;
-
     return (
       <View style={styles.container}>
-        <Text style={styles.symbolText}>{item.user.name}</Text>
-        <View style={styles.row}>
-          <Text style={styles.nameText}>{item.from}</Text>
-          <Text style={styles.nameText}>{item.to}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.nameText}>
-            {moment(item.beginDate).format('MMMM DD YYYY')}
-          </Text>
-          <Text style={styles.nameText}>
-            {moment(item.finishDate).format('MMMM DD YYYY')}
-          </Text>
-        </View>
+        <Text style={styles.symbolText}>{item.name}</Text>
+        <Text style={styles.nameText}>{item.email}</Text>
+        <Text style={styles.nameText}>{item.phone}</Text>
       </View>
     );
   }
@@ -54,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserItem;
+export default ProfileItem;

@@ -11,6 +11,7 @@ import {Swipeable} from 'react-native-gesture-handler';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import UserItem from '../feed/UserItem';
+import ProfileItem from '../profile/ProfileItem';
 
 class SearchScreen extends Component {
   state = {
@@ -33,6 +34,7 @@ class SearchScreen extends Component {
     await this.setState({
       trips: res.data.data,
     });
+    console.log('trips', res.data.data);
   };
   getUsers = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/searchUsers';
@@ -47,12 +49,13 @@ class SearchScreen extends Component {
     await this.setState({
       users: res.data.data,
     });
+    console.log('users', res.data.data);
   };
   chooseComponents = async () => {
     if (this.state.activeTrips == true) {
-      this.getTrips();
+      await this.getTrips();
     } else {
-      this.getUsers();
+      await this.getUsers();
     }
     console.log(this.state.activeTrips);
   };
@@ -78,7 +81,7 @@ class SearchScreen extends Component {
     await this.setState({
       search: value,
     });
-    this.getTrips();
+    this.chooseComponents();
   };
   render() {
     return (
@@ -121,7 +124,7 @@ class SearchScreen extends Component {
           <FlatList
             data={this.state.users}
             keyExtractor={item => item._id}
-            renderItem={({item}) => <Text>hola</Text>}
+            renderItem={({item}) => <ProfileItem item={item} />}
           />
         )}
       </View>
