@@ -28,7 +28,7 @@ const LoginScreen = props => {
   };
 
   const handlePress = () => {
-    props.navigation.navigate('Registro');
+    props.navigation.navigate('Register');
   };
 
   return (
