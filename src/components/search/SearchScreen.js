@@ -12,6 +12,7 @@ import Colors from '../../res/colors';
 import axios from 'axios';
 import UserItem from '../feed/UserItem';
 import ProfileItem from '../profile/ProfileItem';
+import colors from "../../res/colors";
 
 class SearchScreen extends Component {
   state = {
@@ -96,11 +97,13 @@ class SearchScreen extends Component {
         <View style={styles.alternativeLayoutButtonContainer}>
           <Button
             style={styles.btn}
+            color={Colors.white}
             onPress={() => this.setTrips()}
             title="Viajes"
           />
           <Button
             style={styles.btn}
+            color={Colors.white}
             onPress={() => this.setUser()}
             title="Usuarios"
           />
@@ -143,13 +146,14 @@ const styles = StyleSheet.create({
   },
   btn: {
     padding: 8,
-    backgroundColor: Colors.picton,
+    color: Colors.white,
     borderRadius: 8,
     margin: 16,
   },
   alternativeLayoutButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    color: Colors.white,
   },
   btnText: {
     color: Colors.blackPearl,
