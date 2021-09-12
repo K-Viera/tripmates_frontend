@@ -1,21 +1,65 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {Component, useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  FlatList,
+} from 'react-native';
 import Colors from '../../res/colors';
+import storage from '../../libs/storage';
+import axios from 'axios';
+import ChatItem from './ChatItem';
 
-class ChatScreen extends Component {
-  state = {
-    email: '',
-    password: '',
+const ChatScreen = props => {
+  const [loading, setLoading] = useState([]);
+  const [chats, setChats] = useState([]);
+
+  useEffect(() => {
+    getChats();
+  }, []);
+
+  const getChats = async () => {
+    setLoading(true);
+
+    const url = 'https://still-shore-58656.herokuapp.com/api/chat/see';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+    setChats(res.data.data);
+    setLoading(false);
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.linkText}>Chats</Text>
-      </View>
-    );
-  }
-}
+  const handlePress = trip => {};
+
+  return (
+    <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator
+          style={styles.loader}
+          color={Colors.blackPearl}
+          size="large"
+        />
+      ) : null}
+
+      <FlatList
+        data={chats}
+        keyExtractor={item => item._id}
+        renderItem={({item}) => (
+          <ChatItem item={item} onPress={handlePress(item)} />
+        )}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -45,5 +89,4 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
 });
-
 export default ChatScreen;

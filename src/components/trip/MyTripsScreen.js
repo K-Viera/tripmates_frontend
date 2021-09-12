@@ -10,10 +10,10 @@ const MyTripsScreen = props => {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
-    getFeed();
+    getMyTrips();
   }, []);
 
-  const getFeed = async () => {
+  const getMyTrips = async () => {
     setLoading(true);
 
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/mines';
