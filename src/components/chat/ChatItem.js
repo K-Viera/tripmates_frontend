@@ -26,17 +26,15 @@ class ChatItem extends Component {
         renderLeftActions={this.LeftAction}
         onSwipeableLeftOpen={() => console.log('opening')}>
         <View style={styles.container}>
-          <Text style={styles.symbolText}>{item.user.name}</Text>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>
-              {item.Messages[item.Messages.length - 1].message}
-            </Text>
-            <Text style={styles.nameText}>
-              {moment(item.Messages[item.Messages.length - 1].date).format(
-                'MMMM DD YYYY',
-              )}
-            </Text>
-          </View>
+          <Text style={styles.symbolText}>{item.user2.name}</Text>
+          <Text style={styles.nameText}>
+            {item.Messages[item.Messages.length - 1].message}
+          </Text>
+          <Text style={styles.nameText}>
+            {moment(item.Messages[item.Messages.length - 1].date).format(
+              'MMMM DD YYYY',
+            )}
+          </Text>
         </View>
       </Swipeable>
     );

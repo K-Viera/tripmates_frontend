@@ -5,7 +5,7 @@ import storage from '../../libs/storage';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
 
-const MyProfileScreen = () => {
+const MyProfileScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
   const [user, setUser] = useState({});
@@ -36,9 +36,16 @@ const MyProfileScreen = () => {
     setIsLoggedIn(false);
   };
 
+  const handleMyTrips = () => {
+    props.navigation.navigate('Mis Viajes');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{user.name}</Text>
+      <Text style={styles.linkText} onPress={() => handleMyTrips()}>
+        Ver Mis Viajes
+      </Text>
       <Text style={styles.linkText} onPress={() => handleLogout()}>
         Cerrar Sesion
       </Text>
