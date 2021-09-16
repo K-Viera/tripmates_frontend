@@ -9,38 +9,51 @@ class TripItem extends Component {
     super(props);
 
     this.LeftAction = this.LeftAction.bind(this);
+    this.RightAction = this.RightAction.bind(this);
   }
 
   LeftAction = () => {
     return (
       <View style={styles.leftAction}>
-        <Text style={styles.nameText}>FF</Text>
+        <Text style={styles.nameText} />
+      </View>
+    );
+  };
+
+  RightAction = () => {
+    return (
+      <View style={styles.rightAction}>
+        <Text style={styles.nameText} />
       </View>
     );
   };
 
   render() {
-    const {item} = this.props;
+    const {item, onPress} = this.props;
+
     return (
-      <Swipeable
-        renderLeftActions={this.LeftAction}
-        onSwipeableLeftOpen={() => console.log('opening')}>
-        <View style={styles.container}>
-          <Text style={styles.symbolText}>{item.user.name}</Text>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>{item.from}</Text>
-            <Text style={styles.nameText}>{item.to}</Text>
+      <Pressable onPress={onPress}>
+        <Swipeable
+          renderLeftActions={this.LeftAction}
+          renderRightActions={this.RightAction}
+          onSwipeableLeftOpen={() => console.log('opening')}>
+          <View style={styles.container}>
+            <Text style={styles.symbolText}>{item.user.name}</Text>
+            <View style={styles.row}>
+              <Text style={styles.nameText}>{item.from}</Text>
+              <Text style={styles.nameText}>{item.to}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.nameText}>
+                {moment(item.beginDate).format('MMMM DD YYYY')}
+              </Text>
+              <Text style={styles.nameText}>
+                {moment(item.finishDate).format('MMMM DD YYYY')}
+              </Text>
+            </View>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>
-              {moment(item.beginDate).format('MMMM DD YYYY')}
-            </Text>
-            <Text style={styles.nameText}>
-              {moment(item.finishDate).format('MMMM DD YYYY')}
-            </Text>
-          </View>
-        </View>
-      </Swipeable>
+        </Swipeable>
+      </Pressable>
     );
   }
 }
@@ -69,7 +82,15 @@ const styles = StyleSheet.create({
   leftAction: {
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.zircon,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.green,
+    width: '100%',
+  },
+  rightAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
     borderBottomWidth: 1,
     backgroundColor: Colors.carmine,
     width: '100%',

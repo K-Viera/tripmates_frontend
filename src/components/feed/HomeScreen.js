@@ -42,12 +42,6 @@ const HomeScreen = props => {
     setLoading(false);
   };
 
-  const handleLogout = () => {
-    console.log('Logout');
-    storage.instance.remove('access-token');
-    setIsLoggedIn(false);
-  };
-
   const handlePress = trip => {
     console.log(trip);
   };
@@ -74,12 +68,7 @@ const HomeScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <Swipeable
-            renderLeftActions={() => LeftAction(item)}
-            onSwipeableLeftOpen={() => console.log('opening')}
-            onPress={() => handlePress(item)}>
-            <UserItem item={item} />
-          </Swipeable>
+          <UserItem item={item} onPress={() => handlePress(item)} />
         )}
       />
     </SafeAreaView>
@@ -112,14 +101,6 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
-  },
-  leftAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.zircon,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.carmine,
-    width: '100%',
   },
 });
 

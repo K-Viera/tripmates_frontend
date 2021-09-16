@@ -30,7 +30,7 @@ const TripDetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{trip}</Text>
+      <Text style={styles.text}>viaje detallado</Text>
     </View>
   );
 };
