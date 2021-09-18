@@ -1,25 +1,49 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
 import moment from 'moment';
+import storage from '../../libs/storage';
+import axios from 'axios';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {Swipeable} from 'react-native-gesture-handler';
 
 class UserItem extends Component {
   constructor(props) {
     super(props);
-
-    this.LeftAction = this.LeftAction.bind(this);
+    this.leftAction = this.leftAction.bind(this);
+    this.rightAction = this.rightAction.bind(this);
+    this.renderLeftAction = this.renderLeftAction.bind(this);
+    this.renderRightAction = this.renderRightAction.bind(this);
   }
 
-  LeftAction = () => {
+  renderLeftAction = () => {
     return (
       <View style={styles.leftAction}>
-        <Text style={styles.nameText} />
+        <Text />
       </View>
     );
   };
 
-  RightAction = () => {
+  leftAction = async trip => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/like/like';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'put',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+      data: {
+        trip: trip._id,
+      },
+    };
+
+    const res = await axios(config);
+    console.log(res.data.data);
+  };
+
+  renderRightAction = () => {
     return (
       <View style={styles.rightAction}>
         <Text />
@@ -27,14 +51,34 @@ class UserItem extends Component {
     );
   };
 
+  rightAction = async trip => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/like/dislike';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'put',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+      data: {
+        trip: trip._id,
+      },
+    };
+
+    const res = await axios(config);
+    console.log(res.data.data);
+  };
+
   render() {
     const {item, onPress} = this.props;
     return (
       <Pressable onPress={onPress}>
         <Swipeable
-          renderLeftActions={this.LeftAction}
-          renderRightActions={this.RightAction}
-          onSwipeableLeftOpen={() => console.log('opening')}>
+          renderLeftActions={this.renderLeftAction}
+          renderRightActions={this.renderRightAction}
+          onSwipeableLeftOpen={() => this.leftAction(item)}
+          onSwipeableRightOpen={() => this.rightAction(item)}>
           <View style={styles.container}>
             <Text style={styles.symbolText}>{item.user.name}</Text>
             <View style={styles.row}>

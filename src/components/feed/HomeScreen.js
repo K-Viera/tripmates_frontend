@@ -5,6 +5,7 @@ import {
   FlatList,
   ActivityIndicator,
   SafeAreaView,
+  Text,
 } from 'react-native';
 import Colors from '../../res/colors';
 import {useLogin} from '../../libs/LoginProvider';
@@ -13,6 +14,7 @@ import FeedSearch from '../search/FeedSearch';
 import axios from 'axios';
 import UserItem from './UserItem';
 import {Swipeable} from 'react-native-gesture-handler';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 const HomeScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
@@ -93,6 +95,22 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  leftAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.green,
+    width: '100%',
+  },
+  rightAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.carmine,
+    width: '100%',
   },
 });
 
