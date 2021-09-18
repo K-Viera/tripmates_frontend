@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
 import moment from 'moment';
+import storage from '../../libs/storage';
+import axios from 'axios';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {Swipeable} from 'react-native-gesture-handler';
 
-class TripItem extends Component {
+class SearchTripItem extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     const {item, onPress} = this.props;
-
     return (
       <Pressable onPress={onPress}>
         <View style={styles.container}>
+          <Text style={styles.symbolText}>{item.user.name}</Text>
           <View style={styles.row}>
             <Text style={styles.nameText}>{item.from}</Text>
             <Text style={styles.nameText}>{item.to}</Text>
@@ -57,6 +60,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginRight: 16,
   },
+  leftAction: {
+    backgroundColor: Colors.green,
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  rightAction: {
+    backgroundColor: Colors.carmine,
+    justifyContent: 'space-between',
+    width: '100%',
+  },
 });
 
-export default TripItem;
+export default SearchTripItem;

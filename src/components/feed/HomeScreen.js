@@ -96,22 +96,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
   },
-  leftAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.green,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.green,
-    width: '100%',
-  },
-  rightAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.green,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.carmine,
-    width: '100%',
-  },
 });
 
 export default HomeScreen;

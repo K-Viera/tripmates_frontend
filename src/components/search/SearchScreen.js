@@ -12,7 +12,8 @@ import Colors from '../../res/colors';
 import axios from 'axios';
 import UserItem from '../feed/UserItem';
 import ProfileItem from '../profile/ProfileItem';
-import colors from "../../res/colors";
+import colors from '../../res/colors';
+import SearchTripItem from './SearchTripItem';
 
 class SearchScreen extends Component {
   state = {
@@ -84,6 +85,15 @@ class SearchScreen extends Component {
     });
     this.chooseComponents();
   };
+
+  handlePressTrip = trip => {
+    this.props.navigation.navigate('Viaje');
+  };
+
+  handlePressProfile = profile => {
+    this.props.navigation.navigate('Perfil');
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -113,13 +123,10 @@ class SearchScreen extends Component {
             data={this.state.trips}
             keyExtractor={item => item._id}
             renderItem={({item}) => (
-              <Swipeable
-              // renderLeftActions={() => LeftAction(item)}
-              // onSwipeableLeftOpen={() => console.log('opening')}
-              // onPress={() => handlePress(item)}
-              >
-                <UserItem item={item} />
-              </Swipeable>
+              <SearchTripItem
+                item={item}
+                onPress={() => this.handlePressTrip(item)}
+              />
             )}
           />
         )}
@@ -127,7 +134,12 @@ class SearchScreen extends Component {
           <FlatList
             data={this.state.users}
             keyExtractor={item => item._id}
-            renderItem={({item}) => <ProfileItem item={item} />}
+            renderItem={({item}) => (
+              <ProfileItem
+                item={item}
+                onPress={() => this.handlePressProfile(item)}
+              />
+            )}
           />
         )}
       </View>

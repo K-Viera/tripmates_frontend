@@ -73,7 +73,7 @@ const MyTripsScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
   },
   inputText: {
     color: Colors.blackPearl,

@@ -38,7 +38,9 @@ const ChatScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = trip => {};
+  const handlePress = trip => {
+    props.navigation.navigate('Chat');
+  };
 
   return (
     <View style={styles.container}>
@@ -54,7 +56,7 @@ const ChatScreen = props => {
         data={chats}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <ChatItem item={item} onPress={handlePress(item)} />
+          <ChatItem item={item} onPress={() => handlePress(item)} />
         )}
       />
     </View>
@@ -64,7 +66,7 @@ const ChatScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
   },
   inputText: {
     color: Colors.blackPearl,

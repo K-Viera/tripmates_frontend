@@ -20,11 +20,9 @@ class ChatItem extends Component {
   };
 
   render() {
-    const {item} = this.props;
+    const {item, onPress} = this.props;
     return (
-      <Swipeable
-        renderLeftActions={this.LeftAction}
-        onSwipeableLeftOpen={() => console.log('opening')}>
+      <Pressable onPress={onPress}>
         <View style={styles.container}>
           <Text style={styles.symbolText}>{item.user2.name}</Text>
           <Text style={styles.nameText}>
@@ -36,7 +34,7 @@ class ChatItem extends Component {
             )}
           </Text>
         </View>
-      </Swipeable>
+      </Pressable>
     );
   }
 }
@@ -45,8 +43,11 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.zircon,
+    borderBottomColor: Colors.orange,
     borderBottomWidth: 1,
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    margin: 8,
   },
   row: {
     flexDirection: 'row',
@@ -61,14 +62,6 @@ const styles = StyleSheet.create({
     color: Colors.blackPearl,
     fontSize: 14,
     marginRight: 16,
-  },
-  leftAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.zircon,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.carmine,
-    width: '100%',
   },
 });
 

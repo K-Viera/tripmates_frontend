@@ -8,13 +8,15 @@ class ProfileItem extends Component {
     super(props);
   }
   render() {
-    const {item} = this.props;
+    const {item, onPress} = this.props;
     return (
-      <View style={styles.container}>
-        <Text style={styles.symbolText}>{item.name}</Text>
-        <Text style={styles.nameText}>{item.email}</Text>
-        <Text style={styles.nameText}>{item.phone}</Text>
-      </View>
+      <Pressable onPress={onPress}>
+        <View style={styles.container}>
+          <Text style={styles.symbolText}>{item.name}</Text>
+          <Text style={styles.nameText}>{item.email}</Text>
+          <Text style={styles.nameText}>{item.phone}</Text>
+        </View>
+      </Pressable>
     );
   }
 }
