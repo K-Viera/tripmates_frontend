@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
   StyleSheet,
   FlatList,
   ActivityIndicator,
   SafeAreaView,
-  Text,
 } from 'react-native';
 import Colors from '../../res/colors';
-import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
 import axios from 'axios';
-import UserItem from '../feed/UserItem';
-import FavItem from "./FavItem";
+import FavItem from './FavItem';
 
 const FavScreen = props => {
   const [loading, setLoading] = useState([]);
