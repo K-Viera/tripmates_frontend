@@ -17,9 +17,24 @@ class UserItem extends Component {
   }
 
   renderLeftAction = () => {
+    const {item} = this.props;
     return (
       <View style={styles.leftAction}>
-        <Text />
+        <View style={styles.container}>
+          <Text style={styles.symbolText}>{item.user.name}</Text>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>{item.from}</Text>
+            <Text style={styles.nameText}>{item.to}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>
+              {moment(item.beginDate).format('MMMM DD YYYY')}
+            </Text>
+            <Text style={styles.nameText}>
+              {moment(item.finishDate).format('MMMM DD YYYY')}
+            </Text>
+          </View>
+        </View>
       </View>
     );
   };
@@ -44,9 +59,24 @@ class UserItem extends Component {
   };
 
   renderRightAction = () => {
+    const {item} = this.props;
     return (
       <View style={styles.rightAction}>
-        <Text />
+        <View style={styles.container}>
+          <Text style={styles.symbolText}>{item.user.name}</Text>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>{item.from}</Text>
+            <Text style={styles.nameText}>{item.to}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>
+              {moment(item.beginDate).format('MMMM DD YYYY')}
+            </Text>
+            <Text style={styles.nameText}>
+              {moment(item.finishDate).format('MMMM DD YYYY')}
+            </Text>
+          </View>
+        </View>
       </View>
     );
   };
@@ -125,19 +155,13 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   leftAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.green,
-    borderBottomWidth: 1,
     backgroundColor: Colors.green,
+    justifyContent: 'space-between',
     width: '100%',
   },
   rightAction: {
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomColor: Colors.green,
-    borderBottomWidth: 1,
     backgroundColor: Colors.carmine,
+    justifyContent: 'space-between',
     width: '100%',
   },
 });
