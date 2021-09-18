@@ -8,6 +8,7 @@ import TripsStack from './trip/TripsStack';
 import SearchStack from './search/SearchStack';
 import ChatStack from './chat/ChatStack';
 import ProfileStack from './profile/ProfileStack';
+import FavsStack from './favorites/FavsStack';
 
 const Tabs = createBottomTabNavigator();
 
@@ -62,6 +63,15 @@ const FeedNavigator = () => {
           options={{
             tabBarIcon: ({tintColor}) => (
               <Icon name="comment-o" size={20} style={{color: tintColor}} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="favs"
+          component={FavsStack}
+          options={{
+            tabBarIcon: ({tintColor}) => (
+              <Icon name="star" size={20} style={{color: tintColor}} />
             ),
           }}
         />
