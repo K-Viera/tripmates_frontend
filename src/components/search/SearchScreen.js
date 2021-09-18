@@ -97,13 +97,13 @@ class SearchScreen extends Component {
         <View style={styles.alternativeLayoutButtonContainer}>
           <Button
             style={styles.btn}
-            color={Colors.white}
+            color={Colors.orange}
             onPress={() => this.setTrips()}
             title="Viajes"
           />
           <Button
             style={styles.btn}
-            color={Colors.white}
+            color={Colors.orange}
             onPress={() => this.setUser()}
             title="Usuarios"
           />
@@ -147,13 +147,12 @@ const styles = StyleSheet.create({
   btn: {
     padding: 8,
     color: Colors.white,
-    borderRadius: 8,
+    borderRadius: 80,
     margin: 16,
   },
   alternativeLayoutButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    color: Colors.white,
   },
   btnText: {
     color: Colors.blackPearl,
