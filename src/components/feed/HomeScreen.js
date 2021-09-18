@@ -43,15 +43,7 @@ const HomeScreen = props => {
   };
 
   const handlePress = trip => {
-    console.log(trip);
-  };
-
-  const LeftAction = item => {
-    return (
-      <View style={styles.leftAction}>
-        <UserItem item={item} onPress={() => handlePress(item)} />
-      </View>
-    );
+    props.navigation.navigate('Perfil');
   };
 
   return (
