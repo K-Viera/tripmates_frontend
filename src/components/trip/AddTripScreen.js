@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TextInput, Button, Alert, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Text,
+  Platform,
+} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import storage from '../../libs/storage';
@@ -26,7 +34,7 @@ class AddTripScreen extends Component {
       headers: {
         'access-token': token,
       },
-      body: {
+      data: {
         from: this.state.from,
         to: this.state.to,
         beginDate: this.state.beginDate,
