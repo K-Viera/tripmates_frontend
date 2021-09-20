@@ -17,17 +17,16 @@ class SearchTripItem extends Component {
     return (
       <Pressable onPress={onPress}>
         <View style={styles.container}>
-          <Text style={styles.symbolText}>{item.user.name}</Text>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>{item.from}</Text>
-            <Text style={styles.nameText}>{item.to}</Text>
+          <View style={styles.nameContainer}>
+            <Text style={styles.symbolText}>{item.user.name}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.nameText}>
-              {moment(item.beginDate).format('MMMM DD YYYY')}
-            </Text>
-            <Text style={styles.nameText}>
-              {moment(item.finishDate).format('MMMM DD YYYY')}
+            <Text style={styles.nameText}>Salida: {item.from}</Text>
+            <Text style={styles.nameText}>Destino: {item.to}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>{moment(item.beginDate).format('MMMM DD YYYY')}</Text>
+            <Text style={styles.nameText}>{moment(item.finishDate).format('MMMM DD YYYY')}
             </Text>
           </View>
         </View>
@@ -38,37 +37,32 @@ class SearchTripItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
     borderBottomColor: Colors.orange,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
     borderRadius: 20,
     margin: 8,
   },
   row: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   symbolText: {
     color: Colors.blackPearl,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     marginRight: 12,
+    marginBottom: 2,
   },
   nameText: {
     color: Colors.blackPearl,
     fontSize: 14,
     marginRight: 16,
   },
-  leftAction: {
-    backgroundColor: Colors.green,
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  rightAction: {
-    backgroundColor: Colors.carmine,
-    justifyContent: 'space-between',
-    width: '100%',
+  nameContainer: {
+    justifyContent: 'center',
   },
 });
 

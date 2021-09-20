@@ -97,7 +97,6 @@ class SearchScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.linkText}>Buscar</Text>
         <TextInput
           onChangeText={value => this.searchChange(value)}
           value={this.state.search}
@@ -155,6 +154,10 @@ const styles = StyleSheet.create({
   inputText: {
     color: Colors.blackPearl,
     textAlign: 'center',
+    padding: 10,
+    backgroundColor: Colors.whiteblue,
+    margin: 10,
+    borderRadius: 10,
   },
   btn: {
     padding: 8,
@@ -165,6 +168,7 @@ const styles = StyleSheet.create({
   alternativeLayoutButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   btnText: {
     color: Colors.blackPearl,
@@ -176,7 +180,8 @@ const styles = StyleSheet.create({
   linkText: {
     opacity: 0.9,
     textAlign: 'center',
-    fontStyle: 'italic',
+    fontWeight: 'bold',
+    fontSize: 25,
   },
 });
 

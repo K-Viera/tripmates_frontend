@@ -35,13 +35,13 @@ class TripItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.orange,
-    borderBottomWidth: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
     borderRadius: 20,
     margin: 8,
+    marginTop: 15,
   },
   row: {
     flexDirection: 'row',

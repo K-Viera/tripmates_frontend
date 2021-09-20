@@ -23,10 +23,13 @@ class ProfileItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
-    borderBottomColor: Colors.zircon,
-    borderBottomWidth: 1,
+    borderBottomColor: Colors.orange,
+    backgroundColor: Colors.orange,
+    borderRadius: 20,
+    margin: 8,
   },
   row: {
     flexDirection: 'row',

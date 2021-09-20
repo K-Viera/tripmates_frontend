@@ -55,10 +55,13 @@ const EditProfileScreen = () => {
 
   return (
     <View style={styles.container}>
+      <image></image>
       <Text style={styles.text}>{user.name}</Text>
-      <Text style={styles.linkText} onPress={() => handleLogout()}>
-        Cerrar Sesion
-      </Text>
+      <view style={styles.contlogout}>
+        <Text style={styles.linkText} onPress={() => handleLogout()}>
+          Cerrar Sesion
+        </Text>
+      </view>
     </View>
   );
 };
@@ -89,6 +92,10 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  contlogout: {
+    backgroundColor: Colors.orange,
+    padding: 5,
   },
 });
 
