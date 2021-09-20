@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  Text,
+} from 'react-native';
 import Colors from '../../res/colors';
 import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
@@ -10,10 +16,10 @@ const MyTripsScreen = props => {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
-    getFeed();
+    getMyTrips();
   }, []);
 
-  const getFeed = async () => {
+  const getMyTrips = async () => {
     setLoading(true);
 
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/mines';
@@ -32,7 +38,12 @@ const MyTripsScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = trip => {};
+  const handlePress = trip => {
+  };
+
+  const handleMyTrips = () => {
+    props.navigation.navigate('Agregar Viaje');
+  };
 
   return (
     <View style={styles.container}>
@@ -43,6 +54,10 @@ const MyTripsScreen = props => {
           size="large"
         />
       ) : null}
+
+      <Text style={styles.inputText} onPress={() => handleMyTrips()}>
+        Crear Viaje
+      </Text>
 
       <FlatList
         data={trips}
@@ -58,7 +73,7 @@ const MyTripsScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
   },
   inputText: {
     color: Colors.blackPearl,

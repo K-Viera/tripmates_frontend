@@ -5,6 +5,7 @@ const colors = {
   picton: '#3c6fc8',
   carmine: '#ef6372',
   white: '#fff',
+  whiteblue: '#F2FBF6',
   orange: '#FAC361',
   salmon: '#FFA07A',
   lightblue: '#5DADE2',

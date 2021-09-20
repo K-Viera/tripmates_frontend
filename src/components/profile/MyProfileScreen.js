@@ -5,7 +5,7 @@ import storage from '../../libs/storage';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
 
-const MyProfileScreen = () => {
+const MyProfileScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
   const [user, setUser] = useState({});
@@ -36,10 +36,17 @@ const MyProfileScreen = () => {
     setIsLoggedIn(false);
   };
 
+  const handleMyTrips = () => {
+    props.navigation.navigate('Mis Viajes');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{user.name}</Text>
-      <Text style={styles.linkText} onPress={() => handleLogout()}>
+      <Text style={styles.linkText} onPress={() => handleMyTrips()}>
+        Ver Mis Viajes
+      </Text>
+      <Text style={styles.linkTextLogout} onPress={() => handleLogout()}>
         Cerrar Sesion
       </Text>
     </View>
@@ -54,6 +61,10 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.blackPearl,
     textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 22,
+    backgroundColor: Colors.white,
+    marginTop: 20,
   },
   btn: {
     padding: 8,
@@ -69,9 +80,23 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   linkText: {
-    opacity: 0.9,
+    color: Colors.white,
     textAlign: 'center',
-    fontStyle: 'italic',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
+  },
+  linkTextLogout: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.blackPearl,
+    borderRadius: 15,
+    margin: 25,
+    padding: 15,
   },
 });
 

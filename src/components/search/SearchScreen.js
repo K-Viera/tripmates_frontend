@@ -12,6 +12,8 @@ import Colors from '../../res/colors';
 import axios from 'axios';
 import UserItem from '../feed/UserItem';
 import ProfileItem from '../profile/ProfileItem';
+import colors from '../../res/colors';
+import SearchTripItem from './SearchTripItem';
 
 class SearchScreen extends Component {
   state = {
@@ -83,10 +85,18 @@ class SearchScreen extends Component {
     });
     this.chooseComponents();
   };
+
+  handlePressTrip = trip => {
+    this.props.navigation.navigate('Viaje');
+  };
+
+  handlePressProfile = profile => {
+    this.props.navigation.navigate('Perfil');
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.linkText}>Buscar</Text>
         <TextInput
           onChangeText={value => this.searchChange(value)}
           value={this.state.search}
@@ -96,11 +106,13 @@ class SearchScreen extends Component {
         <View style={styles.alternativeLayoutButtonContainer}>
           <Button
             style={styles.btn}
+            color={Colors.orange}
             onPress={() => this.setTrips()}
             title="Viajes"
           />
           <Button
             style={styles.btn}
+            color={Colors.orange}
             onPress={() => this.setUser()}
             title="Usuarios"
           />
@@ -110,13 +122,10 @@ class SearchScreen extends Component {
             data={this.state.trips}
             keyExtractor={item => item._id}
             renderItem={({item}) => (
-              <Swipeable
-              // renderLeftActions={() => LeftAction(item)}
-              // onSwipeableLeftOpen={() => console.log('opening')}
-              // onPress={() => handlePress(item)}
-              >
-                <UserItem item={item} />
-              </Swipeable>
+              <SearchTripItem
+                item={item}
+                onPress={() => this.handlePressTrip(item)}
+              />
             )}
           />
         )}
@@ -124,7 +133,12 @@ class SearchScreen extends Component {
           <FlatList
             data={this.state.users}
             keyExtractor={item => item._id}
-            renderItem={({item}) => <ProfileItem item={item} />}
+            renderItem={({item}) => (
+              <ProfileItem
+                item={item}
+                onPress={() => this.handlePressProfile(item)}
+              />
+            )}
           />
         )}
       </View>
@@ -140,16 +154,21 @@ const styles = StyleSheet.create({
   inputText: {
     color: Colors.blackPearl,
     textAlign: 'center',
+    padding: 10,
+    backgroundColor: Colors.whiteblue,
+    margin: 10,
+    borderRadius: 10,
   },
   btn: {
     padding: 8,
-    backgroundColor: Colors.picton,
-    borderRadius: 8,
+    color: Colors.white,
+    borderRadius: 80,
     margin: 16,
   },
   alternativeLayoutButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   btnText: {
     color: Colors.blackPearl,
@@ -161,7 +180,8 @@ const styles = StyleSheet.create({
   linkText: {
     opacity: 0.9,
     textAlign: 'center',
-    fontStyle: 'italic',
+    fontWeight: 'bold',
+    fontSize: 25,
   },
 });
 

@@ -1,23 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
   StyleSheet,
   FlatList,
   ActivityIndicator,
   SafeAreaView,
-  Text,
 } from 'react-native';
 import Colors from '../../res/colors';
-import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
-import FeedSearch from '../search/FeedSearch';
 import axios from 'axios';
-import UserItem from './UserItem';
-import {Swipeable} from 'react-native-gesture-handler';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-const HomeScreen = props => {
-  const {setIsLoggedIn} = useLogin();
+import FavItem from './FavItem';
 
+const FavScreen = props => {
   const [loading, setLoading] = useState([]);
   const [trips, setTrips] = useState([]);
 
@@ -28,7 +21,7 @@ const HomeScreen = props => {
   const getFeed = async () => {
     setLoading(true);
 
-    const url = 'https://still-shore-58656.herokuapp.com/api/feed';
+    const url = 'https://still-shore-58656.herokuapp.com/api/like';
     const token = await storage.instance.get('access-token');
 
     const config = {
@@ -39,8 +32,8 @@ const HomeScreen = props => {
       },
     };
     const res = await axios(config);
-    console.log(res.data.data);
-    setTrips(res.data.data);
+    console.log(res.data.data.Likes);
+    setTrips(res.data.data.Likes);
     setLoading(false);
   };
 
@@ -62,7 +55,7 @@ const HomeScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <UserItem item={item} onPress={() => handlePress(item)} />
+          <FavItem item={item} onPress={() => handlePress(item)} />
         )}
       />
     </SafeAreaView>
@@ -96,6 +89,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
   },
+  leftAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.green,
+    width: '100%',
+  },
+  rightAction: {
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    backgroundColor: Colors.carmine,
+    width: '100%',
+  },
 });
 
-export default HomeScreen;
+export default FavScreen;
