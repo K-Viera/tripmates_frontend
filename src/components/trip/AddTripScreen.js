@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, Button, Alert, Text} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
+import storage from '../../libs/storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 
@@ -18,9 +19,22 @@ class AddTripScreen extends Component {
 
   addTrip = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
-    const response = await axios.post(url, this.state);
-
-    console.log(response.data);
+    const token = await storage.instance.get('access-token');
+    const config = {
+      method: 'post',
+      url,
+      headers: {
+        'access-token': token,
+      },
+      body: {
+        from: this.state.from,
+        to: this.state.to,
+        beginDate: this.state.beginDate,
+        finishDate: this.state.finishDate,
+      },
+    };
+    const response = await axios(config);
+    console.log(response.data.data);
 
     Alert.alert('Viaje', response.data.message, [
       {
@@ -80,18 +94,26 @@ class AddTripScreen extends Component {
           style={styles.inputText}
         />
         <Text>
+          Begin at :
           {this.state.beginDate != ''
             ? moment(this.state.beginDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Button onPress={this.showDatepickerInit} title="Show date picker!" />
+        <Button
+          onPress={this.showDatepickerInit}
+          title="Show begin date picker!"
+        />
 
         <Text>
+          Finish at :
           {this.state.finishDate != ''
             ? moment(this.state.finishDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Button onPress={this.showDatepickerFinish} title="Show date picker!" />
+        <Button
+          onPress={this.showDatepickerFinish}
+          title="Show finish date picker!"
+        />
         {/* <TextInput
           onChangeText={text => this.setState({finishDate: text})}
           value={this.state.finishDate}
