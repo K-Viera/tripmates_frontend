@@ -1,22 +1,48 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Text,
+  Platform,
+} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
+import storage from '../../libs/storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 class AddTripScreen extends Component {
   state = {
     from: '',
     to: '',
+    Interests: '',
+    dateEnum: '',
+    show: false,
     beginDate: '',
     finishDate: '',
-    Interests: '',
   };
 
   addTrip = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
-    const response = await axios.post(url, this.state);
-
-    console.log(response.data);
+    const token = await storage.instance.get('access-token');
+    const config = {
+      method: 'post',
+      url,
+      headers: {
+        'access-token': token,
+      },
+      data: {
+        from: this.state.from,
+        to: this.state.to,
+        beginDate: this.state.beginDate,
+        finishDate: this.state.finishDate,
+      },
+    };
+    const response = await axios(config);
+    console.log(response.data.data);
 
     Alert.alert('Viaje', response.data.message, [
       {
@@ -30,6 +56,35 @@ class AddTripScreen extends Component {
   login = () => {
     this.props.navigation.navigate('My Trips');
   };
+  onChangeDatePicker = async (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    const showValue = Platform.OS === 'ios';
+    if (this.state.dateEnum == 1) {
+      await this.setState({
+        beginDate: currentDate,
+      });
+      console.log(this.state.beginDate);
+    } else if (this.state.dateEnum == 2) {
+      await this.setState({
+        finishDate: currentDate,
+      });
+    }
+    await this.setState({
+      show: showValue,
+    });
+  };
+  showDatepickerInit = async () => {
+    await this.setState({
+      show: true,
+      dateEnum: 1,
+    });
+  };
+  showDatepickerFinish = async () => {
+    await this.setState({
+      show: true,
+      dateEnum: 2,
+    });
+  };
 
   render() {
     return (
@@ -37,39 +92,64 @@ class AddTripScreen extends Component {
         <TextInput
           onChangeText={text => this.setState({from: text})}
           value={this.state.from}
-          placeholder="Correo Electronico"
+          placeholder="From"
           style={styles.inputText}
         />
         <TextInput
           onChangeText={text => this.setState({to: text})}
           value={this.state.to}
-          placeholder="Contraseña"
+          placeholder="to"
           style={styles.inputText}
         />
-        <TextInput
-          onChangeText={text => this.setState({beginDate: text})}
-          value={this.state.beginDate}
-          placeholder="Nombre"
-          style={styles.inputText}
+        <Text>
+          Begin at :
+          {this.state.beginDate != ''
+            ? moment(this.state.beginDate).format('YYYY-MM-DD')
+            : ''}{' '}
+        </Text>
+        <Button
+          onPress={this.showDatepickerInit}
+          title="Show begin date picker!"
         />
-        <TextInput
+
+        <Text>
+          Finish at :
+          {this.state.finishDate != ''
+            ? moment(this.state.finishDate).format('YYYY-MM-DD')
+            : ''}{' '}
+        </Text>
+        <Button
+          onPress={this.showDatepickerFinish}
+          title="Show finish date picker!"
+        />
+        {/* <TextInput
           onChangeText={text => this.setState({finishDate: text})}
           value={this.state.finishDate}
           placeholder="Telefono"
           style={styles.inputText}
-        />
-        <TextInput
+        /> */}
+        {/* <TextInput
           onChangeText={text => this.setState({Interests: text})}
           value={this.state.Interests}
-          placeholder="Ciudad"
+          placeholder="intereses"
           style={styles.inputText}
-        />
+        /> */}
 
         <Button
           title={'Guardar Viaje'}
           onPress={this.addTrip}
           style={styles.btn}
         />
+        {this.state.show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={new Date(Date.now())}
+            mode={'date'}
+            is24Hour={true}
+            display="default"
+            onChange={this.onChangeDatePicker}
+          />
+        )}
       </View>
     );
   }
