@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 class AddTripScreen extends Component {
   state = {
@@ -10,6 +11,9 @@ class AddTripScreen extends Component {
     beginDate: '',
     finishDate: '',
     Interests: '',
+    date: new Date(Date.now()),
+    show: false,
+    dateFinish: new Date(Date.now()),
   };
 
   addTrip = async () => {
@@ -30,6 +34,19 @@ class AddTripScreen extends Component {
   login = () => {
     this.props.navigation.navigate('My Trips');
   };
+  onChangeDatePicker = async (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    const showValue = Platform.OS === 'ios';
+    await this.setState({
+      date: currentDate,
+      show: showValue,
+    });
+  };
+  showDatepicker = async () => {
+    await this.setState({
+      show: true,
+    });
+  };
 
   render() {
     return (
@@ -37,33 +54,45 @@ class AddTripScreen extends Component {
         <TextInput
           onChangeText={text => this.setState({from: text})}
           value={this.state.from}
-          placeholder="Correo Electronico"
+          placeholder="From"
           style={styles.inputText}
         />
         <TextInput
           onChangeText={text => this.setState({to: text})}
           value={this.state.to}
-          placeholder="Contraseña"
+          placeholder="to"
           style={styles.inputText}
         />
-        <TextInput
+        <Button onPress={this.showDatepicker} title="Show date picker!" />
+        {this.state.show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={this.state.date}
+            mode={'date'}
+            is24Hour={true}
+            display="default"
+            onChange={this.onChangeDatePicker}
+          />
+        )}
+        {/* <TextInput
           onChangeText={text => this.setState({beginDate: text})}
           value={this.state.beginDate}
           placeholder="Nombre"
           style={styles.inputText}
-        />
-        <TextInput
+        /> */}
+        <Button onPress={this.showDatepicker} title="Show date picker!" />
+        {/* <TextInput
           onChangeText={text => this.setState({finishDate: text})}
           value={this.state.finishDate}
           placeholder="Telefono"
           style={styles.inputText}
-        />
-        <TextInput
+        /> */}
+        {/* <TextInput
           onChangeText={text => this.setState({Interests: text})}
           value={this.state.Interests}
-          placeholder="Ciudad"
+          placeholder="intereses"
           style={styles.inputText}
-        />
+        /> */}
 
         <Button
           title={'Guardar Viaje'}
