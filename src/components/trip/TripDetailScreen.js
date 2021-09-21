@@ -9,10 +9,12 @@ const TripDetailScreen = () => {
   const [trip, setTrip] = useState({});
 
   useEffect(() => {
-    getProfile();
+    getTrip();
   }, []);
 
-  const getProfile = async () => {
+  const getTrip = async () => {
+    const {trip} = this.props.route.params;
+
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/especific';
     const token = await storage.instance.get('access-token');
 
@@ -21,6 +23,7 @@ const TripDetailScreen = () => {
       url: url,
       headers: {
         'access-token': token,
+        trip: trip,
       },
     };
     const res = await axios(config);
@@ -30,7 +33,10 @@ const TripDetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>viaje detallado</Text>
+      <Text style={styles.text}>{trip.from}</Text>
+      <Text style={styles.linkText}>{trip.to}</Text>
+      <Text style={styles.text}>{trip.beginDate}</Text>
+      <Text style={styles.linkText}>{trip.finishDate}</Text>
     </View>
   );
 };

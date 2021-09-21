@@ -38,8 +38,8 @@ const ChatScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = trip => {
-    props.navigation.navigate('Chat');
+  const handlePress = chat => {
+    props.navigation.navigate('Chat', {chat});
   };
 
   return (
@@ -56,7 +56,7 @@ const ChatScreen = props => {
         data={chats}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <ChatItem item={item} onPress={() => handlePress(item)} />
+          <ChatItem item={item} onPress={() => handlePress(item._id)} />
         )}
       />
     </View>

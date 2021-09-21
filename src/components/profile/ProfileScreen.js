@@ -15,6 +15,8 @@ const ProfileScreen = () => {
   }, []);
 
   const getProfile = async () => {
+    const {user} = this.props.route.params;
+
     const url = 'https://still-shore-58656.herokuapp.com/api/user/profile';
     const token = await storage.instance.get('access-token');
 
@@ -23,6 +25,7 @@ const ProfileScreen = () => {
       url: url,
       headers: {
         'access-token': token,
+        id: user,
       },
     };
     const res = await axios(config);
@@ -30,18 +33,12 @@ const ProfileScreen = () => {
     setUser(res.data.data);
   };
 
-  const handleLogout = () => {
-    console.log('Logout');
-    storage.instance.remove('access-token');
-    setIsLoggedIn(false);
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{user.name}</Text>
-      <Text style={styles.linkText} onPress={() => handleLogout()}>
-        Cerrar Sesion
-      </Text>
+      <Text style={styles.linkText}>{user.email}</Text>
+      <Text style={styles.text}>{user.phone}</Text>
+      <Text style={styles.linkText}>{user.city}</Text>
     </View>
   );
 };

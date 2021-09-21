@@ -1,21 +1,42 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
+import storage from '../../libs/storage';
+import axios from 'axios';
 
-class ChatDetailScreen extends Component {
-  state = {
-    email: '',
-    password: '',
+const ChatDetailScreen = () => {
+  const [chat, setChat] = useState({});
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const getProfile = async () => {
+    const {chat} = this.props.route.params;
+
+    const url = 'https://still-shore-58656.herokuapp.com/api/chat/';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        'access-token': token,
+        chat: chat,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+    setChat(res.data.data);
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.linkText}>Chat Detallado</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{chat.user1}</Text>
+      <Text style={styles.linkText}>{chat.user2}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
