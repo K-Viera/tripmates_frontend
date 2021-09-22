@@ -13,7 +13,7 @@ import {
 import Colors from '../../res/colors';
 import axios from 'axios';
 import colors from '../../res/colors';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
 
 class RegisterScreen extends Component {
   state = {
@@ -22,16 +22,16 @@ class RegisterScreen extends Component {
     name: '',
     phone: '',
     city: '',
-    imageURL:
-      'https://res.cloudinary.com/ogcodes/image/upload/v1581387688/m0e7y6s5zkktpceh2moq.jpg',
-    image: {},
+    image:
+      'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
+    imageFile: {},
   };
 
   registrar = async () => {
     console.log('Register');
 
-    await this.cloudinaryUpload(this.state.image);
-
+    await this.cloudinaryUpload();
+    console.log('img url: ', this.state.image);
     console.log(this.state);
     const url = 'https://still-shore-58656.herokuapp.com/api/user/';
     const response = await axios.post(url, this.state);
@@ -46,20 +46,21 @@ class RegisterScreen extends Component {
     ]);
   };
 
-  cloudinaryUpload = async photo => {
+  cloudinaryUpload = async () => {
+    console.log('image: ', this.state.imageFile);
     const CLOUDINARY_URL =
-      'https://api.cloudinary.com/v1_1/zipzap/image/upload';
-    const UPLOAD_PRESET = 'yxoq41kh';
+      'https://api.cloudinary.com/v1_1/tripmatesapp/image/upload';
+    const UPLOAD_PRESET = 'd8jmhqxz';
 
     const formImages = new FormData();
 
-    formImages.append('file', photo);
+    formImages.append('file', this.state.imageFile);
     formImages.append('upload_preset', UPLOAD_PRESET);
 
     const resI = await axios.post(CLOUDINARY_URL, formImages);
 
     this.setState({
-      imageURL: resI.data.secure_url,
+      image: resI.data.secure_url,
     });
   };
 
@@ -76,16 +77,17 @@ class RegisterScreen extends Component {
         path: 'images',
       },
     };
-    ImagePicker.showImagePicker(options, async response => {
+
+    ImagePicker.launchImageLibrary(options, async response => {
       console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        const uri = response.uri;
-        const type = response.type;
-        const name = response.fileName;
+        const uri = response.assets[0].uri;
+        const type = response.assets[0].type;
+        const name = response.assets[0].fileName;
         const source = {
           uri,
           type,
@@ -93,8 +95,10 @@ class RegisterScreen extends Component {
         };
 
         this.setState({
-          image: source,
+          imageFile: source,
         });
+
+        console.log('Source= ', source);
       }
     });
   };
@@ -137,22 +141,17 @@ class RegisterScreen extends Component {
         />
 
         <View>
-          <View style={styles.imageContainer}>
+          <View>
             <Image
               source={{
-                uri: this.state.imageURL,
+                uri: this.state.image,
               }}
-              style={styles.backgroundImage}
             />
           </View>
-          <View style={styles.uploadContainer}>
-            <Text style={styles.uploadContainerTitle}>
-              ImagePicker to Cloudinary
-            </Text>
-            <TouchableOpacity
-              onPress={this.selectPhotoTapped}
-              styles={styles.uploadButton}>
-              <Text style={styles.uploadButtonText}>Upload</Text>
+          <View>
+            <Text>ImagePicker to Cloudinary</Text>
+            <TouchableOpacity onPress={this.selectPhotoTapped}>
+              <Text>Upload</Text>
             </TouchableOpacity>
           </View>
         </View>
