@@ -24,7 +24,9 @@ class RegisterScreen extends Component {
     city: '',
     image:
       'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
-    imageFile: {},
+    imageFile: {
+      uri: 'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
+    },
   };
 
   registrar = async () => {
@@ -141,18 +143,13 @@ class RegisterScreen extends Component {
         />
 
         <View>
-          <View>
-            <Image
-              source={{
-                uri: this.state.image,
-              }}
-            />
+          <View style={styles.imageContainer}>
+            <Image source={{uri: this.state.imageFile.uri}} />
           </View>
           <View>
-            <Text>ImagePicker to Cloudinary</Text>
-            <TouchableOpacity onPress={this.selectPhotoTapped}>
-              <Text>Upload</Text>
-            </TouchableOpacity>
+            <Text style={styles.linkText} onPress={this.selectPhotoTapped}>
+              <Text>Seleccionar Imgen</Text>
+            </Text>
           </View>
         </View>
 
@@ -191,6 +188,16 @@ const styles = StyleSheet.create({
   loader: {
     marginTop: 60,
   },
+  linkText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
+  },
   tittle: {
     textAlign: 'center',
     marginBottom: 25,
@@ -200,48 +207,11 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: '#fe5b29',
-    //height: Dimensions.get('window').height,
+    height: 200,
   },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
-  },
-  uploadContainer: {
-    backgroundColor: '#f6f5f8',
-    borderTopLeftRadius: 45,
-    borderTopRightRadius: 45,
-    position: 'absolute',
-    bottom: 0,
-    width: Dimensions.get('window').width,
-    height: 200,
-  },
-  uploadContainerTitle: {
-    alignSelf: 'center',
-    fontSize: 25,
-    margin: 20,
-    fontFamily: 'Roboto',
-  },
-  uploadButton: {
-    borderRadius: 16,
-    alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 7,
-      height: 5,
-    },
-    shadowOpacity: 1.58,
-    shadowRadius: 9,
-    elevation: 4,
-    margin: 10,
-    padding: 10,
-    backgroundColor: '#fe5b29',
-    width: Dimensions.get('window').width - 60,
-    alignItems: 'center',
-  },
-  uploadButtonText: {
-    color: '#f6f5f8',
-    fontSize: 20,
-    fontFamily: 'Roboto',
   },
 });
 

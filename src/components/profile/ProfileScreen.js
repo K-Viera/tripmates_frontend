@@ -31,12 +31,19 @@ const ProfileScreen = props => {
     setUser(res.data.data);
   };
 
+  const addRating = user => {
+    props.navigation.navigate('Comentar', {user});
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{user.name}</Text>
       <Text style={styles.linkText}>{user.email}</Text>
       <Text style={styles.text}>{user.phone}</Text>
       <Text style={styles.linkText}>{user.city}</Text>
+      <Text style={styles.buttonText} onPress={() => addRating(user._id)}>
+        Agregar Comentario
+      </Text>
     </View>
   );
 };
@@ -67,6 +74,16 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  buttonText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
   },
 });
 
