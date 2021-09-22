@@ -15,20 +15,22 @@ class FavItem extends Component {
   render() {
     const {item, onPress} = this.props;
     return (
-      <View style={styles.container}>
-        <View style={styles.row}>
-          <Text style={styles.nameText}>{item.from}</Text>
-          <Text style={styles.symbolText}>{item.to}</Text>
+      <Pressable onPress={onPress}>
+        <View style={styles.container}>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>{item.from}</Text>
+            <Text style={styles.symbolText}>{item.to}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.nameText}>
+              {moment(item.beginDate).format('MMMM DD YYYY')}
+            </Text>
+            <Text style={styles.nameText}>
+              {moment(item.finishDate).format('MMMM DD YYYY')}
+            </Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.nameText}>
-            {moment(item.beginDate).format('MMMM DD YYYY')}
-          </Text>
-          <Text style={styles.nameText}>
-            {moment(item.finishDate).format('MMMM DD YYYY')}
-          </Text>
-        </View>
-      </View>
+      </Pressable>
     );
   }
 }

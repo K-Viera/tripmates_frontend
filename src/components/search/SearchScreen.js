@@ -90,8 +90,8 @@ class SearchScreen extends Component {
     this.props.navigation.navigate('Viaje', {trip});
   };
 
-  handlePressProfile = profile => {
-    this.props.navigation.navigate('Perfil', {profile});
+  handlePressProfile = user => {
+    this.props.navigation.navigate('Perfil', {user});
   };
 
   render() {

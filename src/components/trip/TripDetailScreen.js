@@ -5,7 +5,7 @@ import storage from '../../libs/storage';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
 
-const TripDetailScreen = () => {
+const TripDetailScreen = props => {
   const [trip, setTrip] = useState({});
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const TripDetailScreen = () => {
   }, []);
 
   const getTrip = async () => {
-    const {trip} = this.props.route.params;
+    const {trip} = props.route.params;
 
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/especific';
     const token = await storage.instance.get('access-token');

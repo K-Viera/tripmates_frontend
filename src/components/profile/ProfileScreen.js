@@ -5,9 +5,7 @@ import storage from '../../libs/storage';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
 
-const ProfileScreen = () => {
-  const {setIsLoggedIn} = useLogin();
-
+const ProfileScreen = props => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -15,7 +13,7 @@ const ProfileScreen = () => {
   }, []);
 
   const getProfile = async () => {
-    const {user} = this.props.route.params;
+    const {user} = props.route.params;
 
     const url = 'https://still-shore-58656.herokuapp.com/api/user/profile';
     const token = await storage.instance.get('access-token');
