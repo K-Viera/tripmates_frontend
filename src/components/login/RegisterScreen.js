@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
@@ -107,7 +108,7 @@ class RegisterScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.tittle}>Crea una cuenta</Text>
 
         <TextInput
@@ -141,24 +142,20 @@ class RegisterScreen extends Component {
           placeholder="Ciudad"
           style={styles.inputText}
         />
-
-        <View>
-          <View style={styles.imageContainer}>
-            <Image source={{uri: this.state.imageFile.uri}} />
-          </View>
-          <View>
-            <Text style={styles.linkText} onPress={this.selectPhotoTapped}>
-              <Text>Seleccionar Imgen</Text>
-            </Text>
-          </View>
+        <View style={styles.backgroundImage}>
+          <Image
+            style={styles.imageContainer}
+            source={{uri: this.state.imageFile.uri}}
+          />
         </View>
+        <Text style={styles.linkText} onPress={this.selectPhotoTapped}>
+          Seleccionar Imagen
+        </Text>
 
-        <Button
-          title={'Registrar'}
-          onPress={this.registrar}
-          style={styles.btn}
-        />
-      </View>
+        <Text onPress={this.registrar} style={styles.linkText}>
+          Registrar
+        </Text>
+      </ScrollView>
     );
   }
 }
@@ -167,7 +164,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.orange,
-    padding: 50,
+    paddingHorizontal: 50,
   },
   inputText: {
     color: Colors.blackPearl,
@@ -208,6 +205,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: '#fe5b29',
     height: 200,
+    width: 200,
+    borderRadius: 10,
   },
   backgroundImage: {
     flex: 1,
