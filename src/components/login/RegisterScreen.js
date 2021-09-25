@@ -31,7 +31,7 @@ class RegisterScreen extends Component {
     console.log('Register');
 
     await this.cloudinaryUpload();
-    console.log('img url: ', this.state.image);
+    console.log('img url: ', this.state.avatar);
     console.log(this.state);
     const url = 'https://still-shore-58656.herokuapp.com/api/user/';
     const response = await axios.post(url, this.state);
