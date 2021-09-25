@@ -1,70 +1,65 @@
-import React, {Component, useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Colors from '../../res/colors';
-import storage from '../../libs/storage';
-import axios from 'axios';
+import React from 'react';
+import SocketIOClient from 'socket.io-client';
+import {GiftedChat} from 'react-native-gifted-chat';
 
-const ChatDetailScreen = () => {
-  const [chat, setChat] = useState({});
+class ChatDetailScreen extends React.Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
-    getProfile();
-  }, []);
-
-  const getProfile = async () => {
-    const {chat} = this.props.route.params;
-
-    const url = 'https://still-shore-58656.herokuapp.com/api/chat/';
-    const token = await storage.instance.get('access-token');
-
-    const config = {
-      method: 'get',
-      url: url,
-      headers: {
-        'access-token': token,
-        chat: chat,
-      },
+    this.state = {
+      messages: [],
+      userId: null,
     };
-    const res = await axios(config);
-    console.log(res.data.data);
-    setChat(res.data.data);
-  };
+    this.determineUser = this.determineUser.bind(this);
+    this.onReceivedMessage = this.onReceivedMessage.bind(this);
+    this.onSend = this.onSend.bind(this);
+    this._storeMessages = this._storeMessages.bind(this);
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{chat.user1}</Text>
-      <Text style={styles.linkText}>{chat.user2}</Text>
-    </View>
-  );
-};
+    this.socket = SocketIOClient('https://floating-mesa-15296.herokuapp.com/');
+    this.socket.on('message', this.onReceivedMessage);
+  }
+  componentDidMount() {
+    this.determineUser();
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  inputText: {
-    color: Colors.blackPearl,
-    textAlign: 'center',
-  },
-  btn: {
-    padding: 8,
-    backgroundColor: Colors.picton,
-    borderRadius: 8,
-    margin: 16,
-  },
-  btnText: {
-    color: Colors.blackPearl,
-    textAlign: 'center',
-  },
-  loader: {
-    marginTop: 60,
-  },
-  linkText: {
-    opacity: 0.9,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-});
+  determineUser() {
+    const {chatId} = this.props.route.params;
+    const {userId} = this.props.route.params;
 
+    console.log('chatId: ', chatId);
+    console.log('userId: ', userId);
+
+    this.socket.emit('userJoined', chatId, userId);
+  }
+
+  onReceivedMessage(messages) {
+    this._storeMessages(messages);
+  }
+
+  onSend(messages = []) {
+    const {chatId} = this.props.route.params;
+    this.socket.emit('message', chatId, messages[0]);
+    this._storeMessages(messages);
+  }
+
+  _storeMessages(messages) {
+    this.setState(previousState => {
+      return {
+        messages: GiftedChat.append(previousState.messages, messages),
+      };
+    });
+  }
+
+  render() {
+    const {userId} = this.props.route.params;
+
+    return (
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={this.onSend}
+        user={userId}
+      />
+    );
+  }
+}
 export default ChatDetailScreen;

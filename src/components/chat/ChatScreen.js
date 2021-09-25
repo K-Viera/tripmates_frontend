@@ -1,11 +1,5 @@
-import React, {Component, useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, ActivityIndicator, FlatList} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
@@ -38,8 +32,8 @@ const ChatScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = chat => {
-    props.navigation.navigate('Chat', {chat});
+  const handlePress = (chatId, userId) => {
+    props.navigation.navigate('Chat', {chatId, userId});
   };
 
   return (
@@ -56,7 +50,10 @@ const ChatScreen = props => {
         data={chats}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <ChatItem item={item} onPress={() => handlePress(item._id)} />
+          <ChatItem
+            item={item}
+            onPress={() => handlePress(item._id, item.user1._id)}
+          />
         )}
       />
     </View>

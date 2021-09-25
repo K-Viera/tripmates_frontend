@@ -3,12 +3,9 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Button,
   Alert,
   Text,
-  TouchableOpacity,
   Image,
-  Dimensions,
   ScrollView,
 } from 'react-native';
 import Colors from '../../res/colors';
@@ -23,7 +20,7 @@ class RegisterScreen extends Component {
     name: '',
     phone: '',
     city: '',
-    image:
+    avatar:
       'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
     imageFile: {
       uri: 'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
@@ -63,7 +60,7 @@ class RegisterScreen extends Component {
     const resI = await axios.post(CLOUDINARY_URL, formImages);
 
     this.setState({
-      image: resI.data.secure_url,
+      avatar: resI.data.secure_url,
     });
   };
 
