@@ -87,11 +87,11 @@ class SearchScreen extends Component {
   };
 
   handlePressTrip = trip => {
-    this.props.navigation.navigate('Viaje');
+    this.props.navigation.navigate('Viaje', {trip});
   };
 
-  handlePressProfile = profile => {
-    this.props.navigation.navigate('Perfil');
+  handlePressProfile = user => {
+    this.props.navigation.navigate('Perfil', {user});
   };
 
   render() {
@@ -124,7 +124,7 @@ class SearchScreen extends Component {
             renderItem={({item}) => (
               <SearchTripItem
                 item={item}
-                onPress={() => this.handlePressTrip(item)}
+                onPress={() => this.handlePressTrip(item._id)}
               />
             )}
           />
@@ -136,7 +136,7 @@ class SearchScreen extends Component {
             renderItem={({item}) => (
               <ProfileItem
                 item={item}
-                onPress={() => this.handlePressProfile(item)}
+                onPress={() => this.handlePressProfile(item._id)}
               />
             )}
           />

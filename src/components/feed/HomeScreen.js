@@ -44,8 +44,8 @@ const HomeScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = trip => {
-    props.navigation.navigate('Perfil');
+  const handlePress = user => {
+    props.navigation.navigate('Perfil', {user});
   };
 
   return (
@@ -62,7 +62,7 @@ const HomeScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <UserItem item={item} onPress={() => handlePress(item)} />
+          <UserItem item={item} onPress={() => handlePress(item.user._id)} />
         )}
       />
     </SafeAreaView>

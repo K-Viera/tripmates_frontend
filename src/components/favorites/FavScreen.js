@@ -37,8 +37,8 @@ const FavScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = trip => {
-    props.navigation.navigate('Perfil');
+  const handlePress = user => {
+    props.navigation.navigate('Perfil', {user});
   };
 
   return (
@@ -55,7 +55,7 @@ const FavScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <FavItem item={item} onPress={() => handlePress(item)} />
+          <FavItem item={item} onPress={() => handlePress(item.user)} />
         )}
       />
     </SafeAreaView>

@@ -33,8 +33,7 @@ const TripsScreen = props => {
   };
 
   const handlePress = trip => {
-    console.log('TRIP PRESS');
-    props.navigation.navigate('Viaje');
+    props.navigation.navigate('Viaje', {trip});
   };
 
   return (
@@ -51,7 +50,7 @@ const TripsScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <TripItem item={item} onPress={() => handlePress(item)} />
+          <TripItem item={item} onPress={() => handlePress(item._id)} />
         )}
       />
     </View>

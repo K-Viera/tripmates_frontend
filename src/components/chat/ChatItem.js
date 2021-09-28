@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Colors from '../../res/colors';
 import moment from 'moment';
-import {Swipeable} from 'react-native-gesture-handler';
 
 class ChatItem extends Component {
   constructor(props) {
@@ -26,10 +25,10 @@ class ChatItem extends Component {
         <View style={styles.container}>
           <Text style={styles.symbolText}>{item.user2.name}</Text>
           <Text style={styles.nameText}>
-            {item.Messages[item.Messages.length - 1].message}
+            {item.Messages[item.Messages.length - 1].text}
           </Text>
           <Text style={styles.nameText}>
-            {moment(item.Messages[item.Messages.length - 1].date).format(
+            {moment(item.Messages[item.Messages.length - 1].createdAt).format(
               'MMMM DD YYYY',
             )}
           </Text>
