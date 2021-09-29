@@ -14,7 +14,7 @@ class ChatItem extends Component {
       <Pressable onPress={onPress}>
         <View style={styles.container}>
           <Text style={styles.symbolText}>
-            {user == item.user1._id ? item.user2.name : item.user1.name}
+            {user._id == item.user1._id ? item.user2.name : item.user1.name}
           </Text>
           <Text style={styles.nameText}>
             {item.Messages[item.Messages.length - 1].text}

@@ -50,8 +50,8 @@ const ChatScreen = props => {
     setUser(res.data.data);
   };
 
-  const handlePress = (chatId, userId) => {
-    props.navigation.navigate('Chat', {chatId, userId});
+  const handlePress = (chatId, user) => {
+    props.navigation.navigate('Chat', {chatId, user});
   };
 
   return (
@@ -70,8 +70,8 @@ const ChatScreen = props => {
         renderItem={({item}) => (
           <ChatItem
             item={item}
-            user={user._id}
-            onPress={() => handlePress(item._id, user._id)}
+            user={user}
+            onPress={() => handlePress(item._id, user)}
           />
         )}
       />
