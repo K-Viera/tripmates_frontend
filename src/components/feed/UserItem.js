@@ -17,26 +17,7 @@ class UserItem extends Component {
   }
 
   renderLeftAction = () => {
-    const {item} = this.props;
-    return (
-      <View style={styles.leftAction}>
-        <View style={styles.container}>
-          <Text style={styles.symbolText}>{item.user.name}</Text>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>{item.from}</Text>
-            <Text style={styles.nameText}>{item.to}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>
-              {moment(item.beginDate).format('MMMM DD YYYY')}
-            </Text>
-            <Text style={styles.nameText}>
-              {moment(item.finishDate).format('MMMM DD YYYY')}
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
+    return <View style={styles.leftAction} />;
   };
 
   leftAction = async trip => {
@@ -59,26 +40,7 @@ class UserItem extends Component {
   };
 
   renderRightAction = () => {
-    const {item} = this.props;
-    return (
-      <View style={styles.rightAction}>
-        <View style={styles.container}>
-          <Text style={styles.symbolText}>{item.user.name}</Text>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>{item.from}</Text>
-            <Text style={styles.nameText}>{item.to}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>
-              {moment(item.beginDate).format('MMMM DD YYYY')}
-            </Text>
-            <Text style={styles.nameText}>
-              {moment(item.finishDate).format('MMMM DD YYYY')}
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
+    return <View style={styles.rightAction} />;
   };
 
   rightAction = async trip => {

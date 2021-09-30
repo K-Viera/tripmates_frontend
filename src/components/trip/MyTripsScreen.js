@@ -7,7 +7,6 @@ import {
   Text,
 } from 'react-native';
 import Colors from '../../res/colors';
-import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
 import TripItem from '../trip/TripItem';
 import axios from 'axios';
@@ -39,6 +38,7 @@ const MyTripsScreen = props => {
   };
 
   const handlePress = trip => {
+    props.navigation.navigate('Viaje', {trip});
   };
 
   const handleMyTrips = () => {
@@ -55,7 +55,7 @@ const MyTripsScreen = props => {
         />
       ) : null}
 
-      <Text style={styles.inputText} onPress={() => handleMyTrips()}>
+      <Text style={styles.linkText} onPress={() => handleMyTrips()}>
         Crear Viaje
       </Text>
 
@@ -63,7 +63,7 @@ const MyTripsScreen = props => {
         data={trips}
         keyExtractor={item => item._id}
         renderItem={({item}) => (
-          <TripItem item={item} onPress={handlePress(item)} />
+          <TripItem item={item} onPress={() => handlePress(item._id)} />
         )}
       />
     </View>
@@ -73,7 +73,17 @@ const MyTripsScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.white,
+  },
+  linkText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
   },
   inputText: {
     color: Colors.blackPearl,
@@ -91,11 +101,6 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 60,
-  },
-  linkText: {
-    opacity: 0.9,
-    textAlign: 'center',
-    fontStyle: 'italic',
   },
 });
 

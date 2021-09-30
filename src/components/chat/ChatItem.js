@@ -6,24 +6,16 @@ import moment from 'moment';
 class ChatItem extends Component {
   constructor(props) {
     super(props);
-
-    this.LeftAction = this.LeftAction.bind(this);
   }
 
-  LeftAction = () => {
-    return (
-      <View style={styles.leftAction}>
-        <Text style={styles.nameText}>FF</Text>
-      </View>
-    );
-  };
-
   render() {
-    const {item, onPress} = this.props;
+    const {item, onPress, user} = this.props;
     return (
       <Pressable onPress={onPress}>
         <View style={styles.container}>
-          <Text style={styles.symbolText}>{item.user2.name}</Text>
+          <Text style={styles.symbolText}>
+            {user._id == item.user1._id ? item.user2.name : item.user1.name}
+          </Text>
           <Text style={styles.nameText}>
             {item.Messages[item.Messages.length - 1].text}
           </Text>

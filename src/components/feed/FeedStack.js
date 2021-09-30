@@ -2,9 +2,9 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 import Colors from '../../res/colors';
-import ProfileStack from '../profile/ProfileStack';
 import ProfileScreen from '../profile/ProfileScreen';
 import TripDetailScreen from '../trip/TripDetailScreen';
+import AddRatingScreen from '../profile/AddRatingScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +20,7 @@ const FeedStack = () => {
       }}>
       <Stack.Screen name="Principal" component={HomeScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
+      <Stack.Screen name="Comentar" component={AddRatingScreen} />
       <Stack.Screen name="Viaje" component={TripDetailScreen} />
     </Stack.Navigator>
   );

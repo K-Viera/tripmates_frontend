@@ -8,9 +8,11 @@ import ChatItem from './ChatItem';
 const ChatScreen = props => {
   const [loading, setLoading] = useState([]);
   const [chats, setChats] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     getChats();
+    getUser();
   }, []);
 
   const getChats = async () => {
@@ -32,8 +34,24 @@ const ChatScreen = props => {
     setLoading(false);
   };
 
-  const handlePress = (chatId, userId) => {
-    props.navigation.navigate('Chat', {chatId, userId});
+  const getUser = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/mine';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+    setUser(res.data.data);
+  };
+
+  const handlePress = (chatId, user) => {
+    props.navigation.navigate('Chat', {chatId, user});
   };
 
   return (
@@ -52,7 +70,8 @@ const ChatScreen = props => {
         renderItem={({item}) => (
           <ChatItem
             item={item}
-            onPress={() => handlePress(item._id, item.user1._id)}
+            user={user}
+            onPress={() => handlePress(item._id, user)}
           />
         )}
       />

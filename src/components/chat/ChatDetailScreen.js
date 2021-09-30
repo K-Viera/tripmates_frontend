@@ -24,12 +24,13 @@ class ChatDetailScreen extends React.Component {
 
   determineUser() {
     const {chatId} = this.props.route.params;
-    const {userId} = this.props.route.params;
+    const {user} = this.props.route.params;
 
     console.log('chatId: ', chatId);
-    console.log('userId: ', userId);
+    console.log('userId: ', user._id);
 
-    this.socket.emit('userJoined', chatId, userId);
+    this.socket.emit('userJoinedRoom', chatId, user._id);
+    this.socket.emit('userJoined', chatId, user._id);
   }
 
   onReceivedMessage(messages) {
@@ -51,13 +52,13 @@ class ChatDetailScreen extends React.Component {
   }
 
   render() {
-    const {userId} = this.props.route.params;
+    const {user} = this.props.route.params;
 
     return (
       <GiftedChat
         messages={this.state.messages}
         onSend={this.onSend}
-        user={userId}
+        user={user}
       />
     );
   }
