@@ -109,7 +109,7 @@ class RegisterScreen extends Component {
         <Text style={styles.tittle}>Crea una cuenta</Text>
 
         <TextInput
-          onChangeText={text => this.setState({email: text})}
+          onChangeText={text => this.setState({email: text.toLowerCase})}
           value={this.state.email}
           placeholder="Correo Electronico"
           style={styles.inputText}
