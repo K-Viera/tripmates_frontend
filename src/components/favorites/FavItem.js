@@ -10,26 +10,55 @@ import {Swipeable} from 'react-native-gesture-handler';
 class FavItem extends Component {
   constructor(props) {
     super(props);
+    this.rightAction = this.rightAction.bind(this);
+    this.renderRightAction = this.renderRightAction.bind(this);
   }
+
+  renderRightAction = () => {
+    return <View style={styles.rightAction} />;
+  };
+
+  rightAction = async trip => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/like/like/delete';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'put',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+      data: {
+        trip: trip._id,
+      },
+    };
+
+    const res = await axios(config);
+    console.log(res.data.data);
+  };
 
   render() {
     const {item, onPress} = this.props;
     return (
       <Pressable onPress={onPress}>
-        <View style={styles.container}>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>{item.from}</Text>
-            <Text style={styles.symbolText}>{item.to}</Text>
+        <Swipeable
+          renderRightActions={this.renderRightAction}
+          onSwipeableRightOpen={() => this.rightAction(item)}>
+          <View style={styles.container}>
+            <View style={styles.row}>
+              <Text style={styles.nameText}>{item.from}</Text>
+              <Text style={styles.symbolText}>{item.to}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.nameText}>
+                {moment(item.beginDate).format('MMMM DD YYYY')}
+              </Text>
+              <Text style={styles.nameText}>
+                {moment(item.finishDate).format('MMMM DD YYYY')}
+              </Text>
+            </View>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.nameText}>
-              {moment(item.beginDate).format('MMMM DD YYYY')}
-            </Text>
-            <Text style={styles.nameText}>
-              {moment(item.finishDate).format('MMMM DD YYYY')}
-            </Text>
-          </View>
-        </View>
+        </Swipeable>
       </Pressable>
     );
   }
@@ -58,11 +87,6 @@ const styles = StyleSheet.create({
     color: Colors.blackPearl,
     fontSize: 14,
     marginRight: 16,
-  },
-  leftAction: {
-    backgroundColor: Colors.green,
-    justifyContent: 'space-between',
-    width: '100%',
   },
   rightAction: {
     backgroundColor: Colors.carmine,

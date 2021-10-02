@@ -1,19 +1,8 @@
 import React, {Component} from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {View, StyleSheet, TextInput, Button, Alert, Text} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import colors from '../../res/colors';
-import * as ImagePicker from 'react-native-image-picker';
 import storage from '../../libs/storage';
 
 class AddRatingScreen extends Component {
