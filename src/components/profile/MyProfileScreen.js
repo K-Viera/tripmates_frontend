@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
@@ -40,11 +40,18 @@ const MyProfileScreen = props => {
     props.navigation.navigate('Mis Viajes');
   };
 
+  const handleMyRatings = () => {
+    props.navigation.navigate('Mis Ratings');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{user.name}</Text>
       <Text style={styles.linkText} onPress={() => handleMyTrips()}>
         Ver Mis Viajes
+      </Text>
+      <Text style={styles.linkText} onPress={() => handleMyRatings()}>
+        Ver Mis Comentarios
       </Text>
       <Text style={styles.linkTextLogout} onPress={() => handleLogout()}>
         Cerrar Sesion

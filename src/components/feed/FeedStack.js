@@ -4,7 +4,7 @@ import HomeScreen from './HomeScreen';
 import Colors from '../../res/colors';
 import ProfileScreen from '../profile/ProfileScreen';
 import TripDetailScreen from '../trip/TripDetailScreen';
-import AddRatingScreen from '../profile/AddRatingScreen';
+import AddRatingScreen from '../rating/AddRatingScreen';
 
 const Stack = createStackNavigator();
 
