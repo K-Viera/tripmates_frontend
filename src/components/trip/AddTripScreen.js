@@ -102,26 +102,24 @@ class AddTripScreen extends Component {
           style={styles.inputText}
         />
         <Text>
-          Begin at :
+          Inicio del Viaje :
           {this.state.beginDate != ''
             ? moment(this.state.beginDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Button
-          onPress={this.showDatepickerInit}
-          title="Show begin date picker!"
-        />
+        <Text style={styles.linkText} onPress={this.showDatepickerInit}>
+          Fecha Inicio
+        </Text>
 
         <Text>
-          Finish at :
+          Finalización Del Viaje :
           {this.state.finishDate != ''
             ? moment(this.state.finishDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Button
-          onPress={this.showDatepickerFinish}
-          title="Show finish date picker!"
-        />
+        <Text style={styles.linkText} onPress={this.showDatepickerFinish}>
+          Fecha Regreso
+        </Text>
         {/* <TextInput
           onChangeText={text => this.setState({finishDate: text})}
           value={this.state.finishDate}
@@ -176,6 +174,16 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 60,
+  },
+  linkText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
   },
 });
 

@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     padding: 8,
-    color: Colors.white,
+    color: Colors.blackPearl,
     borderRadius: 80,
     margin: 16,
   },

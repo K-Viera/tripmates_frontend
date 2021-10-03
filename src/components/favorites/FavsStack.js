@@ -14,9 +14,9 @@ const FavsStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.orange,
-          shadowColor: Colors.white,
+          shadowColor: Colors.blackPearl,
         },
-        headerTintColor: Colors.white,
+        headerTintColor: Colors.blackPearl,
       }}>
       <Stack.Screen name="Favoritos" component={FavScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
