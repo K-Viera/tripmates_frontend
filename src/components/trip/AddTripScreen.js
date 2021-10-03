@@ -47,8 +47,7 @@ class AddTripScreen extends Component {
     Alert.alert('Viaje', response.data.mensaje, [
       {
         text: 'Ok',
-        onPress: () =>
-          response.status == 200 ? this.MyTrips : console.log('Error'),
+        onPress: () => this.MyTrips,
       },
     ]);
   };
