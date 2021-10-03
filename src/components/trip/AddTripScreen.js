@@ -42,19 +42,18 @@ class AddTripScreen extends Component {
       },
     };
     const response = await axios(config);
-    console.log(response.data.data);
+    console.log(response.data.mensaje);
 
-    Alert.alert('Viaje', response.data.message, [
+    Alert.alert('Viaje', response.data.mensaje, [
       {
         text: 'Ok',
-        onPress: () =>
-          response.status == 200 ? this.login : console.log('Error'),
+        onPress: () => this.MyTrips(),
       },
     ]);
   };
 
-  login = () => {
-    this.props.navigation.navigate('My Trips');
+  MyTrips = () => {
+    this.props.navigation.navigate('Mis Viajes');
   };
   onChangeDatePicker = async (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -102,26 +101,24 @@ class AddTripScreen extends Component {
           style={styles.inputText}
         />
         <Text>
-          Begin at :
+          Inicio del Viaje :
           {this.state.beginDate != ''
             ? moment(this.state.beginDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Button
-          onPress={this.showDatepickerInit}
-          title="Show begin date picker!"
-        />
+        <Text style={styles.linkText} onPress={this.showDatepickerInit}>
+          Fecha Inicio
+        </Text>
 
         <Text>
-          Finish at :
+          Finalización Del Viaje :
           {this.state.finishDate != ''
             ? moment(this.state.finishDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Button
-          onPress={this.showDatepickerFinish}
-          title="Show finish date picker!"
-        />
+        <Text style={styles.linkText} onPress={this.showDatepickerFinish}>
+          Fecha Regreso
+        </Text>
         {/* <TextInput
           onChangeText={text => this.setState({finishDate: text})}
           value={this.state.finishDate}
@@ -134,12 +131,10 @@ class AddTripScreen extends Component {
           placeholder="intereses"
           style={styles.inputText}
         /> */}
+        <Text style={styles.linkText} onPress={this.addTrip}>
+          Guardar Viaje
+        </Text>
 
-        <Button
-          title={'Guardar Viaje'}
-          onPress={this.addTrip}
-          style={styles.btn}
-        />
         {this.state.show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -176,6 +171,15 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 60,
+  },
+  linkText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    padding: 15,
   },
 });
 

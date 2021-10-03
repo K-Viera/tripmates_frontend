@@ -104,18 +104,18 @@ class SearchScreen extends Component {
           style={styles.inputText}
         />
         <View style={styles.alternativeLayoutButtonContainer}>
-          <Button
+          <Text
             style={styles.btn}
-            color={Colors.orange}
             onPress={() => this.setTrips()}
-            title="Viajes"
-          />
-          <Button
+            title="Viajes">
+            Viajes
+          </Text>
+          <Text
             style={styles.btn}
-            color={Colors.orange}
             onPress={() => this.setUser()}
-            title="Usuarios"
-          />
+            title="Usuarios">
+            Usuarios
+          </Text>
         </View>
         {this.state.activeTrips && (
           <FlatList
@@ -160,10 +160,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   btn: {
-    padding: 8,
     color: Colors.white,
-    borderRadius: 80,
-    margin: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
   },
   alternativeLayoutButtonContainer: {
     flexDirection: 'row',

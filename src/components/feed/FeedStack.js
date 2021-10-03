@@ -14,9 +14,9 @@ const FeedStack = () => {
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.orange,
-          shadowColor: Colors.white,
+          shadowColor: Colors.blackPearl,
         },
-        headerTintColor: Colors.white,
+        headerTintColor: Colors.blackPearl,
       }}>
       <Stack.Screen name="Principal" component={HomeScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
