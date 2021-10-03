@@ -42,19 +42,19 @@ class AddTripScreen extends Component {
       },
     };
     const response = await axios(config);
-    console.log(response.data.data);
+    console.log(response.data.mensaje);
 
-    Alert.alert('Viaje', response.data.message, [
+    Alert.alert('Viaje', response.data.mensaje, [
       {
         text: 'Ok',
         onPress: () =>
-          response.status == 200 ? this.login : console.log('Error'),
+          response.status == 200 ? this.MyTrips : console.log('Error'),
       },
     ]);
   };
 
-  login = () => {
-    this.props.navigation.navigate('My Trips');
+  MyTrips = () => {
+    this.props.navigation.navigate('Mis Viajes');
   };
   onChangeDatePicker = async (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -132,12 +132,10 @@ class AddTripScreen extends Component {
           placeholder="intereses"
           style={styles.inputText}
         /> */}
+        <Text style={styles.linkText} onPress={this.addTrip}>
+          Guardar Viaje
+        </Text>
 
-        <Button
-          title={'Guardar Viaje'}
-          onPress={this.addTrip}
-          style={styles.btn}
-        />
         {this.state.show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -182,7 +180,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.zircon,
     borderRadius: 15,
     margin: 25,
-    marginBottom: -5,
     padding: 15,
   },
 });
