@@ -1,9 +1,8 @@
-import React, {Component, useEffect, useState} from 'react';
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
-import {useLogin} from '../../libs/LoginProvider';
 
 const ProfileScreen = props => {
   const [user, setUser] = useState({});
@@ -36,8 +35,7 @@ const ProfileScreen = props => {
   };
 
   return (
-    <View style={styles.container}>
-
+    <ScrollView style={styles.container}>
       <View style={styles.backgroundImage}>
         <Image style={styles.imageContainer} source={{uri: user.avatar}} />
         <Text style={styles.text}>{user.name}</Text>
@@ -48,7 +46,7 @@ const ProfileScreen = props => {
       <Text style={styles.buttonText} onPress={() => addRating(user._id)}>
         Agregar Comentario
       </Text>
-    </View>
+    </ScrollView>
   );
 };
 

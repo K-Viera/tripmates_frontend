@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, StyleSheet, Image } from "react-native";
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
-import moment from "moment";
+import moment from 'moment';
 
 const TripDetailScreen = props => {
-  const [trip, setTrip] = useState({});
+  const [viaje, setViaje] = useState({});
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const TripDetailScreen = props => {
 
   const getTrip = async () => {
     const {trip} = props.route.params;
+    console.log('Consultar Viaje');
 
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/especific';
     const token = await storage.instance.get('access-token');
@@ -30,7 +31,7 @@ const TripDetailScreen = props => {
     };
     const res = await axios(config);
     console.log(res.data.data);
-    setTrip(res.data.data);
+    setViaje(res.data.data);
   };
 
   const deleteTrip = async () => {
@@ -42,7 +43,7 @@ const TripDetailScreen = props => {
       url: url,
       headers: {
         'access-token': token,
-        trip: trip._id,
+        trip: viaje._id,
       },
     };
 
@@ -69,21 +70,30 @@ const TripDetailScreen = props => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.backgroundImage}>
-        <Image style={styles.imageContainer} source={{uri: trip.user.avatar}} />
-        <Text style={styles.textn}>{trip.user.name}</Text>
+        <Image
+          style={styles.imageContainer}
+          source={{uri: viaje.user !== undefined ? viaje.user.avatar : ''}}
+        />
+        <Text style={styles.textn}>
+          {viaje.user !== undefined ? viaje.user.name : ''}
+        </Text>
       </View>
-      <Text style={styles.text}>Desde: {trip.from}</Text>
-      <Text style={styles.text}>Hacia: {trip.to}</Text>
-      <Text style={styles.text}>Fecha Salida: {moment(trip.beginDate).format('MMMM DD YYYY')}</Text>
-      <Text style={styles.text}>Fecha regreso: {moment(trip.finishDate).format('MMMM DD YYYY')}</Text>
-      {user._id === trip.user && (
+      <Text style={styles.text}>Desde: {viaje.from}</Text>
+      <Text style={styles.text}>Hacia: {viaje.to}</Text>
+      <Text style={styles.text}>
+        Fecha Salida: {moment(viaje.beginDate).format('MMMM DD YYYY')}
+      </Text>
+      <Text style={styles.text}>
+        Fecha regreso: {moment(viaje.finishDate).format('MMMM DD YYYY')}
+      </Text>
+      {user._id === viaje.user && (
         <Text style={styles.btnText} onPress={() => deleteTrip()}>
           Eliminar Viaje
         </Text>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
