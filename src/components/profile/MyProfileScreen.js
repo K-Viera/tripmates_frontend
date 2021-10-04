@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
@@ -45,8 +45,14 @@ const MyProfileScreen = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{user.name}</Text>
+    <ScrollView style={styles.container}>
+      <View style={styles.backgroundImage}>
+        <Image style={styles.imageContainer} source={{uri: user.avatar}} />
+        <Text style={styles.text}>{user.name}</Text>
+      </View>
+      <Text style={styles.textp}>Correo: {user.email}</Text>
+      <Text style={styles.textp}>Teléfono: {user.phone}</Text>
+      <Text style={styles.textp}>Origen: {user.city}</Text>
       <Text style={styles.linkText} onPress={() => handleMyTrips()}>
         Ver Mis Viajes
       </Text>
@@ -56,7 +62,7 @@ const MyProfileScreen = props => {
       <Text style={styles.linkTextLogout} onPress={() => handleLogout()}>
         Cerrar Sesion
       </Text>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -104,6 +110,29 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     margin: 25,
     padding: 15,
+  },
+  imageContainer: {
+    backgroundColor: Colors.lightblue,
+    height: 310,
+    width: 310,
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    alignItems: 'center',
+    paddingBottom: 15,
+    paddingTop: 15,
+    borderBottomEndRadius: 10,
+    flex: 0,
+    resizeMode: 'cover',
+    padding: -5,
+    backgroundColor: Colors.whiteblue,
+  },
+  textp: {
+    color: Colors.blackPearl,
+    textAlign: 'center',
+    fontSize: 15,
+    backgroundColor: Colors.white,
+    marginTop: 10,
   },
 });
 

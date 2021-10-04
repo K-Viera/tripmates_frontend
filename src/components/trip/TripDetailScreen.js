@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Image } from "react-native";
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
+import moment from "moment";
 
 const TripDetailScreen = props => {
   const [trip, setTrip] = useState({});
@@ -69,10 +70,14 @@ const TripDetailScreen = props => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{trip.from}</Text>
-      <Text style={styles.linkText}>{trip.to}</Text>
-      <Text style={styles.text}>{trip.beginDate}</Text>
-      <Text style={styles.linkText}>{trip.finishDate}</Text>
+      <View style={styles.backgroundImage}>
+        <Image style={styles.imageContainer} source={{uri: trip.user.avatar}} />
+        <Text style={styles.textn}>{trip.user.name}</Text>
+      </View>
+      <Text style={styles.text}>Desde: {trip.from}</Text>
+      <Text style={styles.text}>Hacia: {trip.to}</Text>
+      <Text style={styles.text}>Fecha Salida: {moment(trip.beginDate).format('MMMM DD YYYY')}</Text>
+      <Text style={styles.text}>Fecha regreso: {moment(trip.finishDate).format('MMMM DD YYYY')}</Text>
       {user._id === trip.user && (
         <Text style={styles.btnText} onPress={() => deleteTrip()}>
           Eliminar Viaje
@@ -86,10 +91,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-  },
-  text: {
-    color: Colors.blackPearl,
-    textAlign: 'center',
   },
   btn: {
     padding: 8,
@@ -114,6 +115,38 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  imageContainer: {
+    backgroundColor: Colors.lightblue,
+    height: 310,
+    width: 310,
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    alignItems: 'center',
+    paddingBottom: 15,
+    paddingTop: 15,
+    borderBottomEndRadius: 10,
+    flex: 0,
+    resizeMode: 'cover',
+    padding: -5,
+    backgroundColor: Colors.whiteblue,
+  },
+  textn: {
+    color: Colors.blackPearl,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 28,
+    backgroundColor: Colors.whiteblue,
+    marginTop: 20,
+  },
+  text: {
+    color: Colors.blackPearl,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 22,
+    backgroundColor: Colors.white,
+    marginTop: 20,
   },
 });
 

@@ -109,7 +109,7 @@ class RegisterScreen extends Component {
         <Text style={styles.tittle}>Crea una cuenta</Text>
 
         <TextInput
-          onChangeText={text => this.setState({email: text.toLowerCase})}
+          onChangeText={text => this.setState({email: text})}
           value={this.state.email}
           placeholder="Correo Electronico"
           style={styles.inputText}
@@ -149,7 +149,7 @@ class RegisterScreen extends Component {
           Seleccionar Imagen
         </Text>
 
-        <Text onPress={this.registrar} style={styles.linkText}>
+        <Text onPress={this.registrar} style={styles.linkTextR}>
           Registrar
         </Text>
       </ScrollView>
@@ -192,6 +192,16 @@ const styles = StyleSheet.create({
     marginBottom: -5,
     padding: 15,
   },
+  linkTextR: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: 20,
+    padding: 15,
+  },
   tittle: {
     textAlign: 'center',
     marginBottom: 25,
@@ -201,8 +211,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: '#fe5b29',
-    height: 200,
-    width: 200,
+    height: 310,
+    width: 310,
     borderRadius: 10,
   },
   backgroundImage: {

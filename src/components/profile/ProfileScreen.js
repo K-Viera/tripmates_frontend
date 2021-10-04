@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Image } from "react-native";
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
@@ -37,10 +37,14 @@ const ProfileScreen = props => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{user.name}</Text>
-      <Text style={styles.linkText}>{user.email}</Text>
-      <Text style={styles.text}>{user.phone}</Text>
-      <Text style={styles.linkText}>{user.city}</Text>
+
+      <View style={styles.backgroundImage}>
+        <Image style={styles.imageContainer} source={{uri: user.avatar}} />
+        <Text style={styles.text}>{user.name}</Text>
+      </View>
+      <Text style={styles.textp}>Correo: {user.email}</Text>
+      <Text style={styles.textp}>Teléfono: {user.phone}</Text>
+      <Text style={styles.textp}>Origen: {user.city}</Text>
       <Text style={styles.buttonText} onPress={() => addRating(user._id)}>
         Agregar Comentario
       </Text>
@@ -56,6 +60,17 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.blackPearl,
     textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 30,
+    backgroundColor: Colors.whiteblue,
+    marginTop: 20,
+  },
+  textp: {
+    color: Colors.blackPearl,
+    textAlign: 'center',
+    fontSize: 15,
+    backgroundColor: Colors.white,
+    marginTop: 10,
   },
   btn: {
     padding: 8,
@@ -84,6 +99,22 @@ const styles = StyleSheet.create({
     margin: 25,
     marginBottom: -5,
     padding: 15,
+  },
+  imageContainer: {
+    backgroundColor: Colors.lightblue,
+    height: 310,
+    width: 310,
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    alignItems: 'center',
+    paddingBottom: 15,
+    paddingTop: 15,
+    borderBottomEndRadius: 10,
+    flex: 0,
+    resizeMode: 'cover',
+    padding: -5,
+    backgroundColor: Colors.whiteblue,
   },
 });
 
