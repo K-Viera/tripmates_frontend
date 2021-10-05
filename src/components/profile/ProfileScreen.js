@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ProfileScreen = props => {
   const [user, setUser] = useState({});
@@ -46,6 +47,10 @@ const ProfileScreen = props => {
       <Text style={styles.buttonText} onPress={() => addRating(user._id)}>
         Agregar Comentario
       </Text>
+      <View style={styles.chat} onPress={() => addRating(user._id)}>
+        <Icon name="comments" size={20} style={{color: Colors.white}} />
+        <Text style={styles.textc}>Chatear</Text>
+      </View>
     </ScrollView>
   );
 };
@@ -54,6 +59,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    //alignItems: 'center',
   },
   text: {
     color: Colors.blackPearl,
@@ -95,7 +101,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.zircon,
     borderRadius: 15,
     margin: 25,
-    marginBottom: -5,
     padding: 15,
   },
   imageContainer: {
@@ -113,6 +118,22 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     padding: -5,
     backgroundColor: Colors.whiteblue,
+  },
+  chat: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.zircon,
+    textAlign: 'center',
+    padding: 15,
+    marginLeft: 25,
+    marginRight: 25,
+    borderRadius: 15,
+    justifyContent: 'center',
+  },
+  textc: {
+    backgroundColor: Colors.zircon,
+    color: Colors.white,
+    marginLeft: 10,
   },
 });
 
