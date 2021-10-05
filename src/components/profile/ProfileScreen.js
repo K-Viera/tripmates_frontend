@@ -44,12 +44,13 @@ const ProfileScreen = props => {
       <Text style={styles.textp}>Correo: {user.email}</Text>
       <Text style={styles.textp}>Teléfono: {user.phone}</Text>
       <Text style={styles.textp}>Origen: {user.city}</Text>
-      <Text style={styles.buttonText} onPress={() => addRating(user._id)}>
-        Agregar Comentario
-      </Text>
       <View style={styles.chat} onPress={() => addRating(user._id)}>
+        <Icon name="star" size={20} style={{color: Colors.white}} />
+        <Text style={styles.textc} onPress={() => addRating(user._id)}>Comentar</Text>
+      </View>
+      <View style={styles.chat}>
         <Icon name="comments" size={20} style={{color: Colors.white}} />
-        <Text style={styles.textc}>Chatear</Text>
+        <Text style={styles.textc} onPress={() => addRating(user._id)}>Chatear</Text>
       </View>
     </ScrollView>
   );
@@ -127,8 +128,10 @@ const styles = StyleSheet.create({
     padding: 15,
     marginLeft: 25,
     marginRight: 25,
+    marginTop: 25,
     borderRadius: 15,
     justifyContent: 'center',
+
   },
   textc: {
     backgroundColor: Colors.zircon,
