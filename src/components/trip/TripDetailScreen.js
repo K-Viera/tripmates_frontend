@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
+import moment from 'moment';
 
 const TripDetailScreen = props => {
-  const [trip, setTrip] = useState({});
+  const [viaje, setViaje] = useState({});
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -15,6 +16,7 @@ const TripDetailScreen = props => {
 
   const getTrip = async () => {
     const {trip} = props.route.params;
+    console.log('Consultar Viaje');
 
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/especific';
     const token = await storage.instance.get('access-token');
@@ -29,7 +31,7 @@ const TripDetailScreen = props => {
     };
     const res = await axios(config);
     console.log(res.data.data);
-    setTrip(res.data.data);
+    setViaje(res.data.data);
   };
 
   const deleteTrip = async () => {
@@ -41,7 +43,7 @@ const TripDetailScreen = props => {
       url: url,
       headers: {
         'access-token': token,
-        trip: trip._id,
+        trip: viaje._id,
       },
     };
 
@@ -68,17 +70,30 @@ const TripDetailScreen = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{trip.from}</Text>
-      <Text style={styles.linkText}>{trip.to}</Text>
-      <Text style={styles.text}>{trip.beginDate}</Text>
-      <Text style={styles.linkText}>{trip.finishDate}</Text>
-      {user._id === trip.user && (
+    <ScrollView style={styles.container}>
+      <View style={styles.backgroundImage}>
+        <Image
+          style={styles.imageContainer}
+          source={{uri: viaje.user !== undefined ? viaje.user.avatar : ''}}
+        />
+        <Text style={styles.textn}>
+          {viaje.user !== undefined ? viaje.user.name : ''}
+        </Text>
+      </View>
+      <Text style={styles.text}>Desde: {viaje.from}</Text>
+      <Text style={styles.text}>Hacia: {viaje.to}</Text>
+      <Text style={styles.text}>
+        Fecha Salida: {moment(viaje.beginDate).format('MMMM DD YYYY')}
+      </Text>
+      <Text style={styles.text}>
+        Fecha regreso: {moment(viaje.finishDate).format('MMMM DD YYYY')}
+      </Text>
+      {user._id === viaje.user && (
         <Text style={styles.btnText} onPress={() => deleteTrip()}>
           Eliminar Viaje
         </Text>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -86,10 +101,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-  },
-  text: {
-    color: Colors.blackPearl,
-    textAlign: 'center',
   },
   btn: {
     padding: 8,
@@ -114,6 +125,38 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  imageContainer: {
+    backgroundColor: Colors.lightblue,
+    height: 310,
+    width: 310,
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    alignItems: 'center',
+    paddingBottom: 15,
+    paddingTop: 15,
+    borderBottomEndRadius: 10,
+    flex: 0,
+    resizeMode: 'cover',
+    padding: -5,
+    backgroundColor: Colors.whiteblue,
+  },
+  textn: {
+    color: Colors.blackPearl,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 28,
+    backgroundColor: Colors.whiteblue,
+    marginTop: 20,
+  },
+  text: {
+    color: Colors.blackPearl,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 22,
+    backgroundColor: Colors.white,
+    marginTop: 20,
   },
 });
 

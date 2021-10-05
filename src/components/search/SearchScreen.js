@@ -1,18 +1,8 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
-import {Swipeable} from 'react-native-gesture-handler';
+import {View, Text, TextInput, StyleSheet, FlatList} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
-import UserItem from '../feed/UserItem';
 import ProfileItem from '../profile/ProfileItem';
-import colors from '../../res/colors';
 import SearchTripItem from './SearchTripItem';
 
 class SearchScreen extends Component {
@@ -54,7 +44,7 @@ class SearchScreen extends Component {
     console.log('users', res.data.data);
   };
   chooseComponents = async () => {
-    if (this.state.activeTrips == true) {
+    if (this.state.activeTrips === true) {
       await this.getTrips();
     } else {
       await this.getUsers();
@@ -165,9 +155,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: Colors.zircon,
     borderRadius: 15,
-    margin: 25,
+    margin: 5,
     marginBottom: -5,
     padding: 15,
+    width: '50%',
   },
   alternativeLayoutButtonContainer: {
     flexDirection: 'row',
