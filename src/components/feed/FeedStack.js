@@ -5,6 +5,7 @@ import Colors from '../../res/colors';
 import ProfileScreen from '../profile/ProfileScreen';
 import TripDetailScreen from '../trip/TripDetailScreen';
 import AddRatingScreen from '../rating/AddRatingScreen';
+import ChatDetailScreen from '../chat/ChatDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const FeedStack = () => {
       }}>
       <Stack.Screen name="Principal" component={HomeScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
+      <Stack.Screen name="Chat" component={ChatDetailScreen} />
       <Stack.Screen name="Comentar" component={AddRatingScreen} />
       <Stack.Screen name="Viaje" component={TripDetailScreen} />
     </Stack.Navigator>

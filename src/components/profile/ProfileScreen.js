@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
@@ -7,9 +14,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ProfileScreen = props => {
   const [user, setUser] = useState({});
+  const [profile, setProfile] = useState({});
+
+  var chatExists;
+  var chatId;
 
   useEffect(() => {
     getProfile();
+    getMyProfile();
   }, []);
 
   const getProfile = async () => {
@@ -28,6 +40,22 @@ const ProfileScreen = props => {
     };
     const res = await axios(config);
     console.log(res.data.data);
+    setProfile(res.data.data);
+  };
+
+  const getMyProfile = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/mine';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
     setUser(res.data.data);
   };
 
@@ -35,23 +63,73 @@ const ProfileScreen = props => {
     props.navigation.navigate('Comentar', {user});
   };
 
+  const searchChat = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/chat/search';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: {
+        'access-token': token,
+        profile: profile._id,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+
+    chatExists = res.data.data;
+
+    if (chatExists === true) {
+      chatId = res.data.id;
+    } else {
+      await createChat();
+    }
+  };
+
+  const createChat = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/chat/';
+    const token = await storage.instance.get('access-token');
+
+    const config = {
+      method: 'post',
+      url: url,
+      headers: {
+        'access-token': token,
+      },
+      data: {
+        user2: profile._id,
+      },
+    };
+    const res = await axios(config);
+    console.log(res.data.data);
+
+    chatId = res.data.id;
+  };
+
+  const addChat = async () => {
+    await searchChat();
+
+    props.navigation.navigate('Chat', {chatId, user});
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.backgroundImage}>
-        <Image style={styles.imageContainer} source={{uri: user.avatar}} />
-        <Text style={styles.text}>{user.name}</Text>
+        <Image style={styles.imageContainer} source={{uri: profile.avatar}} />
+        <Text style={styles.text}>{profile.name}</Text>
       </View>
-      <Text style={styles.textp}>Correo: {user.email}</Text>
-      <Text style={styles.textp}>Teléfono: {user.phone}</Text>
-      <Text style={styles.textp}>Origen: {user.city}</Text>
-      <View style={styles.chat} onPress={() => addRating(user._id)}>
+      <Text style={styles.textp}>Correo: {profile.email}</Text>
+      <Text style={styles.textp}>Teléfono: {profile.phone}</Text>
+      <Text style={styles.textp}>Origen: {profile.city}</Text>
+      <Pressable style={styles.chat} onPress={() => addRating(profile._id)}>
         <Icon name="star" size={20} style={{color: Colors.white}} />
-        <Text style={styles.textc} onPress={() => addRating(user._id)}>Comentar</Text>
-      </View>
-      <View style={styles.chat}>
+        <Text style={styles.textc}>Comentar</Text>
+      </Pressable>
+      <Pressable style={styles.chat} onPress={() => addChat()}>
         <Icon name="comments" size={20} style={{color: Colors.white}} />
-        <Text style={styles.textc} onPress={() => addRating(user._id)}>Chatear</Text>
-      </View>
+        <Text style={styles.textc}>Chatear</Text>
+      </Pressable>
     </ScrollView>
   );
 };
@@ -131,7 +209,6 @@ const styles = StyleSheet.create({
     marginTop: 25,
     borderRadius: 15,
     justifyContent: 'center',
-
   },
   textc: {
     backgroundColor: Colors.zircon,
