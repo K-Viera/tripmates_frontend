@@ -6,6 +6,7 @@ import ProfileScreen from '../profile/ProfileScreen';
 import TripDetailScreen from '../trip/TripDetailScreen';
 import AddRatingScreen from '../rating/AddRatingScreen';
 import ChatDetailScreen from '../chat/ChatDetailScreen';
+import AddTripScreen from '../trip/AddTripScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const FeedStack = () => {
       }}>
       <Stack.Screen name="Principal" component={HomeScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
+      <Stack.Screen name="Agrega Tu Primer Viaje" component={AddTripScreen} />
       <Stack.Screen name="Chat" component={ChatDetailScreen} />
       <Stack.Screen name="Comentar" component={AddRatingScreen} />
       <Stack.Screen name="Viaje" component={TripDetailScreen} />

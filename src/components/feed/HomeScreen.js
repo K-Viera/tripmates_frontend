@@ -20,15 +20,43 @@ const HomeScreen = props => {
 
   const [loading, setLoading] = useState([]);
   const [trips, setTrips] = useState([]);
+  const [myTrips, setMyTrips] = useState([]);
 
   useEffect(() => {
+    getMyTrips();
     getFeed();
   }, []);
 
   const getFeed = async () => {
-    setLoading(true);
+    if (myTrips !== undefined && myTrips.length > 0) {
+      setLoading(true);
 
-    const url = 'https://still-shore-58656.herokuapp.com/api/feed';
+      const url = 'https://still-shore-58656.herokuapp.com/api/feed';
+      const token = await storage.instance.get('access-token');
+
+      const config = {
+        method: 'get',
+        url: url,
+        headers: {
+          'access-token': token,
+        },
+      };
+      const res = await axios(config);
+      console.log(res.data.data);
+      setTrips(res.data.data);
+      setLoading(false);
+    } else {
+      props.navigation.navigate('Agrega Tu Primer Viaje');
+    }
+
+  };
+
+  const handlePress = user => {
+    props.navigation.navigate('Perfil', {user});
+  };
+
+  const getMyTrips = async () => {
+    const url = 'https://still-shore-58656.herokuapp.com/api/trip/mines';
     const token = await storage.instance.get('access-token');
 
     const config = {
@@ -40,12 +68,7 @@ const HomeScreen = props => {
     };
     const res = await axios(config);
     console.log(res.data.data);
-    setTrips(res.data.data);
-    setLoading(false);
-  };
-
-  const handlePress = user => {
-    props.navigation.navigate('Perfil', {user});
+    setMyTrips(res.data.data);
   };
 
   return (
