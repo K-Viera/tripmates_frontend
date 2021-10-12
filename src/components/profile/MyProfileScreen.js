@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
@@ -44,6 +44,10 @@ const MyProfileScreen = props => {
     props.navigation.navigate('Mis Ratings');
   };
 
+  const handleEdit = () => {
+    props.navigation.navigate('Editar Perfil');
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.backgroundImage}>
@@ -58,6 +62,9 @@ const MyProfileScreen = props => {
       </Text>
       <Text style={styles.linkText} onPress={() => handleMyRatings()}>
         Ver Mis Comentarios
+      </Text>
+      <Text style={styles.linkText} onPress={() => handleEdit()}>
+        Editar Mi Perfil
       </Text>
       <Text style={styles.linkTextLogout} onPress={() => handleLogout()}>
         Cerrar Sesion

@@ -1,20 +1,37 @@
-import React, {Component, useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {Component} from 'react';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Alert,
+  Text,
+  Image,
+  ScrollView,
+} from 'react-native';
 import Colors from '../../res/colors';
-import storage from '../../libs/storage';
 import axios from 'axios';
-import {useLogin} from '../../libs/LoginProvider';
+import colors from '../../res/colors';
+import * as ImagePicker from 'react-native-image-picker';
+import storage from '../../libs/storage';
 
-const EditProfileScreen = () => {
-  const {setIsLoggedIn} = useLogin();
+class EditProfileScreen extends Component {
+  state = {
+    email: '',
+    name: '',
+    phone: '',
+    city: '',
+    avatar:
+      'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
+    imageFile: {
+      uri: 'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg',
+    },
+  };
 
-  const [user, setUser] = useState({});
+  componentDidMount() {
+    this.getProfile();
+  }
 
-  useEffect(() => {
-    getProfile();
-  }, []);
-
-  const getProfile = async () => {
+  getProfile = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/user/mine';
     const token = await storage.instance.get('access-token');
 
@@ -27,59 +44,170 @@ const EditProfileScreen = () => {
     };
     const res = await axios(config);
     console.log(res.data.data);
-    setUser(res.data.data);
+
+    this.setState({
+      email: res.data.data.email,
+      name: res.data.data.name,
+      phone: res.data.data.phone,
+      city: res.data.data.city,
+      avatar: res.data.data.avatar,
+    });
   };
 
-  const editProfile = async user => {
-    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
-    const token = await storage.instance.get('access-token');
+  edit = async () => {
+    console.log('Register');
 
+    await this.cloudinaryUpload();
+    console.log('img url: ', this.state.avatar);
+    console.log(this.state);
+    const url = 'https://still-shore-58656.herokuapp.com/api/user/';
+
+    const token = await storage.instance.get('access-token');
     const config = {
       method: 'put',
-      url: url,
+      url,
       headers: {
         'access-token': token,
       },
-      body: {
-        user,
+      data: this.state,
+    };
+    const response = await axios(config);
+    console.log(response.status);
+
+    Alert.alert('Editar', response.data.data, [
+      {
+        text: 'Ok',
+        onPress: () => this.MyProfile(),
+      },
+    ]);
+  };
+
+  cloudinaryUpload = async () => {
+    console.log('image: ', this.state.imageFile);
+
+    if (
+      this.state.imageFile.uri !==
+      'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg'
+    ) {
+      const CLOUDINARY_URL =
+        'https://api.cloudinary.com/v1_1/tripmatesapp/image/upload';
+      const UPLOAD_PRESET = 'd8jmhqxz';
+
+      const formImages = new FormData();
+
+      formImages.append('file', this.state.imageFile);
+      formImages.append('upload_preset', UPLOAD_PRESET);
+
+      const resI = await axios.post(CLOUDINARY_URL, formImages);
+
+      this.setState({
+        avatar: resI.data.secure_url,
+      });
+    }
+  };
+
+  MyProfile = () => {
+    this.props.navigation.navigate('Mi Perfil');
+  };
+
+  selectPhotoTapped = () => {
+    const options = {
+      title: 'Select Photo',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
       },
     };
-    const res = await axios(config);
+
+    ImagePicker.launchImageLibrary(options, async response => {
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const uri = response.assets[0].uri;
+        const type = response.assets[0].type;
+        const name = response.assets[0].fileName;
+        const source = {
+          uri,
+          type,
+          name,
+        };
+
+        this.setState({
+          imageFile: source,
+        });
+
+        console.log('Source= ', source);
+      }
+    });
   };
 
-  const handleLogout = () => {
-    console.log('Logout');
-    storage.instance.remove('access-token');
-    setIsLoggedIn(false);
-  };
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <Text style={styles.tittle}>Edita Tu Cuenta</Text>
 
-  return (
-    <View style={styles.container}>
-      <image></image>
-      <Text style={styles.text}>{user.name}</Text>
-      <view style={styles.contlogout}>
-        <Text style={styles.linkText} onPress={() => handleLogout()}>
-          Cerrar Sesion
+        <TextInput
+          onChangeText={text => this.setState({email: text})}
+          value={this.state.email}
+          placeholder="Correo Electronico"
+          style={styles.inputText}
+        />
+        <TextInput
+          onChangeText={text => this.setState({name: text})}
+          value={this.state.name}
+          placeholder="Nombre"
+          style={styles.inputText}
+        />
+        <TextInput
+          onChangeText={text => this.setState({phone: text})}
+          value={this.state.phone}
+          placeholder="Telefono"
+          style={styles.inputText}
+        />
+        <TextInput
+          onChangeText={text => this.setState({city: text})}
+          value={this.state.city}
+          placeholder="Ciudad"
+          style={styles.inputText}
+        />
+        <View style={styles.backgroundImage}>
+          <Image
+            style={styles.imageContainer}
+            source={{uri: this.state.imageFile.uri}}
+          />
+        </View>
+        <Text style={styles.linkText} onPress={this.selectPhotoTapped}>
+          Seleccionar Imagen
         </Text>
-      </view>
-    </View>
-  );
-};
+
+        <Text onPress={this.edit} style={styles.linkTextR}>
+          Editar
+        </Text>
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.orange,
+    paddingHorizontal: 50,
   },
-  text: {
+  inputText: {
     color: Colors.blackPearl,
     textAlign: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    marginBottom: 15,
   },
   btn: {
     padding: 8,
     backgroundColor: Colors.picton,
-    borderRadius: 8,
-    margin: 16,
+    borderRadius: 10,
   },
   btnText: {
     color: Colors.blackPearl,
@@ -89,13 +217,41 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   linkText: {
-    opacity: 0.9,
+    color: Colors.white,
     textAlign: 'center',
-    fontStyle: 'italic',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: -5,
+    padding: 15,
   },
-  contlogout: {
-    backgroundColor: Colors.orange,
-    padding: 5,
+  linkTextR: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    backgroundColor: Colors.zircon,
+    borderRadius: 15,
+    margin: 25,
+    marginBottom: 20,
+    padding: 15,
+  },
+  tittle: {
+    textAlign: 'center',
+    marginBottom: 25,
+    fontSize: 30,
+    color: colors.white,
+    fontWeight: 'bold',
+  },
+  imageContainer: {
+    backgroundColor: '#fe5b29',
+    height: 310,
+    width: 310,
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
   },
 });
 
