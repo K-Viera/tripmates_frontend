@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, Alert, Text, Platform} from 'react-native';
 import Colors from '../../res/colors';
+import storage from '../../libs/storage';
 
 class ChangePasswordScreen extends Component {
   state = {
@@ -8,7 +9,24 @@ class ChangePasswordScreen extends Component {
     newPassword: '',
     confirmNewPassword: '',
   };
-  cambiar = () => {};
+  cambiar = async () => {
+    if (this.state.newPassword == this.state.confirmNewPassword) {
+      console.log('send change password');
+      const url =
+        'https://still-shore-58656.herokuapp.com/api/user/changePassword';
+      const token = await storage.instance.get('access-token');
+      const config = {
+        method: 'put',
+        url,
+        headers: {
+          'access-token': token,
+        },
+        data: this.state,
+      };
+      const response = await axios(config);
+      console.log(response.status);
+    }
+  };
   render() {
     return (
       <View style={styles.container}>
