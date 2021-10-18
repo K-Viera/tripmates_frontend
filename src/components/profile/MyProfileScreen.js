@@ -47,6 +47,9 @@ const MyProfileScreen = props => {
   const handleEdit = () => {
     props.navigation.navigate('Editar Perfil');
   };
+  const handleChangePassword = () => {
+    props.navigation.navigate('Cambiar Contraseña');
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -65,6 +68,9 @@ const MyProfileScreen = props => {
       </Text>
       <Text style={styles.linkText} onPress={() => handleEdit()}>
         Editar Mi Perfil
+      </Text>
+      <Text style={styles.linkText} onPress={() => handleChangePassword()}>
+        Cambiar Contraseña
       </Text>
       <Text style={styles.linkTextLogout} onPress={() => handleLogout()}>
         Cerrar Sesion
