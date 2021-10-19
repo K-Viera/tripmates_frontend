@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, TextInput, Alert, Text, Platform} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
+import axios from 'axios';
 
 class ChangePasswordScreen extends Component {
   state = {
@@ -25,7 +26,17 @@ class ChangePasswordScreen extends Component {
       };
       const response = await axios(config);
       console.log(response.status);
+
+      Alert.alert('Editar', response.data.data, [
+        {
+          text: 'Ok',
+          onPress: () => this.MyProfile(),
+        },
+      ]);
     }
+  };
+  MyProfile = () => {
+    this.props.navigation.navigate('Mi Perfil');
   };
   render() {
     return (
@@ -35,18 +46,21 @@ class ChangePasswordScreen extends Component {
           onChangeText={text => this.setState({oldPassword: text})}
           value={this.state.oldPassword}
           placeholder="Contraseña Actual"
+          secureTextEntry
           style={styles.inputText}
         />
         <TextInput
           onChangeText={text => this.setState({newPassword: text})}
           value={this.state.newPassword}
           placeholder="Nueva Contraseña"
+          secureTextEntry
           style={styles.inputText}
         />
         <TextInput
           onChangeText={text => this.setState({confirmNewPassword: text})}
           value={this.state.confirmNewPassword}
           placeholder="Confirmar Nueva Contraseña"
+          secureTextEntry
           style={styles.inputText}
         />
         <Text onPress={this.cambiar} style={styles.linkTextR}>
