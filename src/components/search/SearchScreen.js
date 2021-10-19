@@ -164,6 +164,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 10,
+    marginLeft: 12,
+    marginRight: 12,
   },
   btnText: {
     color: Colors.blackPearl,

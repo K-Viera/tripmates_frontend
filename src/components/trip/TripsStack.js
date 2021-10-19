@@ -9,6 +9,7 @@ import TripDetailScreen from './TripDetailScreen';
 import FavoriteUserScreen from '../profile/FavoriteUserScreen';
 import FavoriteTripsScreen from './FavoriteTripsScreen';
 import ChatDetailScreen from '../chat/ChatDetailScreen';
+import EditTripScreen from './EditTripScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const TripsStack = () => {
       }}>
       <Stack.Screen name="Viajar" component={TripsScreen} />
       <Stack.Screen name="Agregar Viaje" component={AddTripScreen} />
+      <Stack.Screen name="Editar Viaje" component={EditTripScreen} />
       <Stack.Screen name="Mis Viajes" component={MyTripsScreen} />
       <Stack.Screen name="Viaje" component={TripDetailScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />

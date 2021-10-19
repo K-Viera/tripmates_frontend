@@ -12,6 +12,8 @@ import FavoriteTripsScreen from '../trip/FavoriteTripsScreen';
 import AddRatingScreen from '../rating/AddRatingScreen';
 import MyRatingsScreen from '../rating/MyRatingsScreen';
 import ChatDetailScreen from '../chat/ChatDetailScreen';
+import EditTripScreen from '../trip/EditTripScreen';
+import ChangePasswordScreen from './ChangePasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +30,7 @@ const ProfileStack = () => {
       <Stack.Screen name="Mi Perfil" component={MyProfileScreen} />
       <Stack.Screen name="Editar Perfil" component={EditProfileScreen} />
       <Stack.Screen name="Agregar Viaje" component={AddTripScreen} />
+      <Stack.Screen name="Editar Viaje" component={EditTripScreen} />
       <Stack.Screen name="Mis Viajes" component={MyTripsScreen} />
       <Stack.Screen name="Mis Ratings" component={MyRatingsScreen} />
       <Stack.Screen name="Viaje" component={TripDetailScreen} />
@@ -36,6 +39,10 @@ const ProfileStack = () => {
       <Stack.Screen name="Chat" component={ChatDetailScreen} />
       <Stack.Screen name="Usuarios Favoritos" component={FavoriteUserScreen} />
       <Stack.Screen name="Viajes Favoritos" component={FavoriteTripsScreen} />
+      <Stack.Screen
+        name="Cambiar Contraseña"
+        component={ChangePasswordScreen}
+      />
     </Stack.Navigator>
   );
 };

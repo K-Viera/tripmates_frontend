@@ -48,20 +48,25 @@ class RegisterScreen extends Component {
 
   cloudinaryUpload = async () => {
     console.log('image: ', this.state.imageFile);
-    const CLOUDINARY_URL =
-      'https://api.cloudinary.com/v1_1/tripmatesapp/image/upload';
-    const UPLOAD_PRESET = 'd8jmhqxz';
+    if (
+      this.state.imageFile.uri !==
+      'https://res.cloudinary.com/tripmatesapp/image/upload/v1632315856/sample.jpg'
+    ) {
+      const CLOUDINARY_URL =
+        'https://api.cloudinary.com/v1_1/tripmatesapp/image/upload';
+      const UPLOAD_PRESET = 'd8jmhqxz';
 
-    const formImages = new FormData();
+      const formImages = new FormData();
 
-    formImages.append('file', this.state.imageFile);
-    formImages.append('upload_preset', UPLOAD_PRESET);
+      formImages.append('file', this.state.imageFile);
+      formImages.append('upload_preset', UPLOAD_PRESET);
 
-    const resI = await axios.post(CLOUDINARY_URL, formImages);
+      const resI = await axios.post(CLOUDINARY_URL, formImages);
 
-    this.setState({
-      avatar: resI.data.secure_url,
-    });
+      this.setState({
+        avatar: resI.data.secure_url,
+      });
+    }
   };
 
   login = () => {

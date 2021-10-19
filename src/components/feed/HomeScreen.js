@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
   StyleSheet,
   FlatList,
   ActivityIndicator,
@@ -8,27 +7,24 @@ import {
   Text,
 } from 'react-native';
 import Colors from '../../res/colors';
-import {useLogin} from '../../libs/LoginProvider';
 import storage from '../../libs/storage';
-import FeedSearch from '../search/FeedSearch';
 import axios from 'axios';
 import UserItem from './UserItem';
-import {Swipeable} from 'react-native-gesture-handler';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-const HomeScreen = props => {
-  const {setIsLoggedIn} = useLogin();
 
-  const [loading, setLoading] = useState([]);
-  const [trips, setTrips] = useState([]);
-  const [myTrips, setMyTrips] = useState([]);
+const HomeScreen = props => {
+  const [loading, setLoading] = useState(false);
+  const [feedTrips, setFeedTrips] = useState([]);
 
   useEffect(() => {
-    getMyTrips();
     getFeed();
   }, []);
 
   const getFeed = async () => {
-    if (myTrips !== undefined && myTrips.length > 0) {
+    const myTrips = await getMyTrips();
+
+    if (myTrips.length === 0) {
+      props.navigation.navigate('Agrega Tu Primer Viaje');
+    } else {
       setLoading(true);
 
       const url = 'https://still-shore-58656.herokuapp.com/api/feed';
@@ -42,13 +38,11 @@ const HomeScreen = props => {
         },
       };
       const res = await axios(config);
+      console.log('Feed Trips');
       console.log(res.data.data);
-      setTrips(res.data.data);
+      setFeedTrips(res.data.data);
       setLoading(false);
-    } else {
-      props.navigation.navigate('Agrega Tu Primer Viaje');
     }
-
   };
 
   const handlePress = user => {
@@ -67,27 +61,44 @@ const HomeScreen = props => {
       },
     };
     const res = await axios(config);
+    console.log('My Trips');
     console.log(res.data.data);
-    setMyTrips(res.data.data);
+    return res.data.data;
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {loading ? (
-        <ActivityIndicator
-          style={styles.loader}
-          color={Colors.blackPearl}
-          size="large"
-        />
-      ) : null}
+      {feedTrips.length > 0 ? (
+        <SafeAreaView style={styles.container}>
+          {loading ? (
+            <ActivityIndicator
+              style={styles.loader}
+              color={Colors.blackPearl}
+              size="large"
+            />
+          ) : null}
 
-      <FlatList
-        data={trips}
-        keyExtractor={item => item._id}
-        renderItem={({item}) => (
-          <UserItem item={item} onPress={() => handlePress(item.user._id)} />
-        )}
-      />
+          <FlatList
+            data={feedTrips}
+            keyExtractor={item => item._id}
+            renderItem={({item}) => (
+              <UserItem
+                item={item}
+                onPress={() => handlePress(item.user._id)}
+              />
+            )}
+          />
+        </SafeAreaView>
+      ) : (
+        <SafeAreaView style={styles.container}>
+          <Text style={styles.symbolText}>
+            No tenemos viajes para mostrarte
+          </Text>
+          <Text style={styles.linkText}>
+            Busca Nuevos Viajes o Agrega los tuyos
+          </Text>
+        </SafeAreaView>
+      )}
     </SafeAreaView>
   );
 };
@@ -118,6 +129,13 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+    fontSize: 18,
+  },
+  symbolText: {
+    color: Colors.blackPearl,
+    fontWeight: 'bold',
+    fontSize: 22,
+    textAlign: 'center',
   },
 });
 

@@ -9,6 +9,8 @@ const TripDetailScreen = props => {
   const [viaje, setViaje] = useState({});
   const [user, setUser] = useState({});
 
+  const {mine} = props.route.params;
+
   useEffect(() => {
     getTrip();
     getProfile();
@@ -53,6 +55,10 @@ const TripDetailScreen = props => {
     props.navigation.navigate('Mis Viajes');
   };
 
+  const editTrip = async trip => {
+    props.navigation.navigate('Editar Viaje', {trip});
+  };
+
   const getProfile = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/user/mine';
     const token = await storage.instance.get('access-token');
@@ -88,10 +94,15 @@ const TripDetailScreen = props => {
       <Text style={styles.text}>
         Fecha regreso: {moment(viaje.finishDate).format('MMMM DD YYYY')}
       </Text>
-      {user._id === viaje.user && (
-        <Text style={styles.btnText} onPress={() => deleteTrip()}>
-          Eliminar Viaje
-        </Text>
+      {mine !== undefined && mine === true && (
+        <View>
+          <Text style={styles.btnText} onPress={() => editTrip(viaje._id)}>
+            Editar Viaje
+          </Text>
+          <Text style={styles.btnText} onPress={() => deleteTrip()}>
+            Eliminar Viaje
+          </Text>
+        </View>
       )}
     </ScrollView>
   );
@@ -115,7 +126,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.zircon,
     borderRadius: 15,
     margin: 25,
-    marginBottom: -5,
     padding: 15,
   },
   loader: {

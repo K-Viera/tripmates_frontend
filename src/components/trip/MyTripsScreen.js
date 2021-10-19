@@ -38,7 +38,8 @@ const MyTripsScreen = props => {
   };
 
   const handlePress = trip => {
-    props.navigation.navigate('Viaje', {trip});
+    const mine = true;
+    props.navigation.navigate('Viaje', {trip, mine});
   };
 
   const handleMyTrips = () => {

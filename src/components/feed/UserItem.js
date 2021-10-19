@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import Colors from '../../res/colors';
 import moment from 'moment';
 import storage from '../../libs/storage';
@@ -72,6 +72,12 @@ class UserItem extends Component {
           onSwipeableLeftOpen={() => this.leftAction(item)}
           onSwipeableRightOpen={() => this.rightAction(item)}>
           <View style={styles.container}>
+            <View style={styles.backgroundImage}>
+              <Image
+                style={styles.imageContainer}
+                source={{uri: item.user.avatar}}
+              />
+            </View>
             <Text style={styles.symbolText}>{item.user.name}</Text>
             <View style={styles.row}>
               <Text style={styles.nameText}>{item.from}</Text>
@@ -104,12 +110,14 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+    marginLeft: 8,
   },
   symbolText: {
     color: Colors.blackPearl,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 20,
     marginRight: 12,
+    marginLeft: 8,
   },
   nameText: {
     color: Colors.blackPearl,
@@ -125,6 +133,21 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.carmine,
     justifyContent: 'space-between',
     width: '100%',
+  },
+  imageContainer: {
+    backgroundColor: Colors.lightblue,
+    height: 350,
+    width: 350,
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    alignItems: 'center',
+    paddingBottom: 15,
+    paddingTop: 15,
+    borderBottomEndRadius: 20,
+    flex: 0,
+    resizeMode: 'cover',
+    padding: -5,
   },
 });
 

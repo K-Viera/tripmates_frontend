@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
@@ -44,6 +44,13 @@ const MyProfileScreen = props => {
     props.navigation.navigate('Mis Ratings');
   };
 
+  const handleEdit = () => {
+    props.navigation.navigate('Editar Perfil');
+  };
+  const handleChangePassword = () => {
+    props.navigation.navigate('Cambiar Contraseña');
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.backgroundImage}>
@@ -58,6 +65,12 @@ const MyProfileScreen = props => {
       </Text>
       <Text style={styles.linkText} onPress={() => handleMyRatings()}>
         Ver Mis Comentarios
+      </Text>
+      <Text style={styles.linkText} onPress={() => handleEdit()}>
+        Editar Mi Perfil
+      </Text>
+      <Text style={styles.linkText} onPress={() => handleChangePassword()}>
+        Cambiar Contraseña
       </Text>
       <Text style={styles.linkTextLogout} onPress={() => handleLogout()}>
         Cerrar Sesion
@@ -76,7 +89,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 22,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.whiteblue,
     marginTop: 20,
   },
   btn: {
@@ -121,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 15,
     paddingTop: 15,
-    borderBottomEndRadius: 10,
+    borderBottomEndRadius: 20,
     flex: 0,
     resizeMode: 'cover',
     padding: -5,
