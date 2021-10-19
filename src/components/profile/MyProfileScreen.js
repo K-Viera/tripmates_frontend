@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 22,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.whiteblue,
     marginTop: 20,
   },
   btn: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 15,
     paddingTop: 15,
-    borderBottomEndRadius: 10,
+    borderBottomEndRadius: 20,
     flex: 0,
     resizeMode: 'cover',
     padding: -5,
