@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Button,
   Alert,
   Text,
   Platform,
@@ -13,12 +12,25 @@ import axios from 'axios';
 import storage from '../../libs/storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import SelectMultiple from 'react-native-select-multiple';
+
+const intereses = [
+  'Viajar',
+  'Conocer',
+  'Explorar',
+  'Diversión',
+  'Negocios',
+  'Fiesta',
+  'Clima',
+  'Cultura',
+];
 
 class AddTripScreen extends Component {
   state = {
     from: '',
     to: '',
-    Interests: '',
+    Interests: [],
+    intereses: [],
     dateEnum: '',
     show: false,
     beginDate: '',
@@ -26,6 +38,8 @@ class AddTripScreen extends Component {
   };
 
   addTrip = async () => {
+    await this.getInterests();
+    console.log(this.state.Interests);
     const url = 'https://still-shore-58656.herokuapp.com/api/trip/';
     const token = await storage.instance.get('access-token');
     const config = {
@@ -34,12 +48,7 @@ class AddTripScreen extends Component {
       headers: {
         'access-token': token,
       },
-      data: {
-        from: this.state.from,
-        to: this.state.to,
-        beginDate: this.state.beginDate,
-        finishDate: this.state.finishDate,
-      },
+      data: this.state,
     };
     const response = await axios(config);
     console.log(response.data.mensaje);
@@ -52,18 +61,24 @@ class AddTripScreen extends Component {
     ]);
   };
 
+  getInterests = () => {
+    this.setState({
+      Interests: Array.from(this.state.intereses, x => x.value),
+    });
+  };
+
   MyTrips = () => {
     this.props.navigation.navigate('Mis Viajes');
   };
   onChangeDatePicker = async (event, selectedDate) => {
     const currentDate = selectedDate || date;
     const showValue = Platform.OS === 'ios';
-    if (this.state.dateEnum == 1) {
+    if (this.state.dateEnum === 1) {
       await this.setState({
         beginDate: currentDate,
       });
       console.log(this.state.beginDate);
-    } else if (this.state.dateEnum == 2) {
+    } else if (this.state.dateEnum === 2) {
       await this.setState({
         finishDate: currentDate,
       });
@@ -85,6 +100,11 @@ class AddTripScreen extends Component {
     });
   };
 
+  onSelectionsChange = intereses => {
+    // selectedFruits is array of { label, value }
+    this.setState({intereses});
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -100,38 +120,31 @@ class AddTripScreen extends Component {
           placeholder="to"
           style={styles.inputText}
         />
-        <Text>
+        <Text style={styles.text}>
           Inicio del Viaje :
-          {this.state.beginDate != ''
+          {this.state.beginDate !== ''
             ? moment(this.state.beginDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Text style={styles.linkText} onPress={this.showDatepickerInit}>
+        <Text style={styles.buttonText} onPress={this.showDatepickerInit}>
           Fecha Inicio
         </Text>
 
-        <Text>
+        <Text style={styles.text}>
           Finalización Del Viaje :
-          {this.state.finishDate != ''
+          {this.state.finishDate !== ''
             ? moment(this.state.finishDate).format('YYYY-MM-DD')
             : ''}{' '}
         </Text>
-        <Text style={styles.linkText} onPress={this.showDatepickerFinish}>
+        <Text style={styles.buttonText} onPress={this.showDatepickerFinish}>
           Fecha Regreso
         </Text>
-        {/* <TextInput
-          onChangeText={text => this.setState({finishDate: text})}
-          value={this.state.finishDate}
-          placeholder="Telefono"
-          style={styles.inputText}
-        /> */}
-        {/* <TextInput
-          onChangeText={text => this.setState({Interests: text})}
-          value={this.state.Interests}
-          placeholder="intereses"
-          style={styles.inputText}
-        /> */}
-        <Text style={styles.linkText} onPress={this.addTrip}>
+        <SelectMultiple
+          items={intereses}
+          selectedItems={this.state.intereses}
+          onSelectionsChange={this.onSelectionsChange}
+        />
+        <Text style={styles.buttonText} onPress={this.addTrip}>
           Guardar Viaje
         </Text>
 
@@ -172,14 +185,18 @@ const styles = StyleSheet.create({
   loader: {
     marginTop: 60,
   },
-  linkText: {
+  buttonText: {
     color: Colors.white,
     textAlign: 'center',
     fontWeight: 'bold',
     backgroundColor: Colors.zircon,
     borderRadius: 15,
-    margin: 25,
+    margin: 15,
     padding: 15,
+  },
+  text: {
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 
