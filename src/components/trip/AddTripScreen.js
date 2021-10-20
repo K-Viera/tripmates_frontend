@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Alert,
-  Text,
-  Platform,
-} from 'react-native';
+import {View, StyleSheet, TextInput, Alert, Text, Platform} from 'react-native';
 import Colors from '../../res/colors';
 import axios from 'axios';
 import storage from '../../libs/storage';
