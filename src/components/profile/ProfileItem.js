@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: Colors.lightblue,
-    height: 350,
-    width: 350,
+    height: 320,
+    width: 320,
     borderRadius: 10,
   },
 });

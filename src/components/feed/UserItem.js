@@ -136,18 +136,18 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: Colors.lightblue,
-    height: 350,
-    width: 350,
+    height: 320,
+    width: 320,
     borderRadius: 10,
   },
   backgroundImage: {
     alignItems: 'center',
     paddingBottom: 15,
     paddingTop: 15,
+    marginLeft: 20,
+    marginRight: 20,
     borderBottomEndRadius: 20,
-    flex: 0,
-    resizeMode: 'cover',
-    padding: -5,
+    resizeMode: 'cover'
   },
 });
 
