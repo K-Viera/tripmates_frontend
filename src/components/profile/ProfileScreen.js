@@ -112,6 +112,9 @@ const ProfileScreen = props => {
 
     props.navigation.navigate('Chat', {chatId, user});
   };
+  const handleMyRatings = user => {
+    props.navigation.navigate('Ratings', {user});
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -129,6 +132,12 @@ const ProfileScreen = props => {
       <Pressable style={styles.chat} onPress={() => addChat()}>
         <Icon name="comments" size={20} style={{color: Colors.white}} />
         <Text style={styles.textc}>Chatear</Text>
+      </Pressable>
+      <Pressable
+        style={styles.chat}
+        onPress={() => handleMyRatings(profile._id)}>
+        <Icon name="thumbs-o-up" size={20} style={{color: Colors.white}} />
+        <Text style={styles.textc}>Ver Comentarios</Text>
       </Pressable>
     </ScrollView>
   );

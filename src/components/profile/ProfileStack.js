@@ -14,6 +14,7 @@ import MyRatingsScreen from '../rating/MyRatingsScreen';
 import ChatDetailScreen from '../chat/ChatDetailScreen';
 import EditTripScreen from '../trip/EditTripScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
+import RatingsScreen from '../rating/RatingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const ProfileStack = () => {
       <Stack.Screen name="Editar Viaje" component={EditTripScreen} />
       <Stack.Screen name="Mis Viajes" component={MyTripsScreen} />
       <Stack.Screen name="Mis Ratings" component={MyRatingsScreen} />
+      <Stack.Screen name="Ratings" component={RatingsScreen} />
       <Stack.Screen name="Viaje" component={TripDetailScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
       <Stack.Screen name="Comentar" component={AddRatingScreen} />

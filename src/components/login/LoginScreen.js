@@ -54,10 +54,6 @@ const LoginScreen = props => {
       <Button title={'Ingresar'} onPress={login} style={styles.btn} />
 
       <Text style={styles.linkText} onPress={handlePress}>
-        ¿Olvidaste tu contraseña?
-      </Text>
-
-      <Text style={styles.linkText} onPress={handlePress}>
         Crear una cuenta
       </Text>
     </View>

@@ -8,6 +8,7 @@ import AddRatingScreen from '../rating/AddRatingScreen';
 import ChatDetailScreen from '../chat/ChatDetailScreen';
 import AddTripScreen from '../trip/AddTripScreen';
 import MyTripsScreen from '../trip/MyTripsScreen';
+import RatingsScreen from '../rating/RatingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const FeedStack = () => {
       }}>
       <Stack.Screen name="Principal" component={HomeScreen} />
       <Stack.Screen name="Perfil" component={ProfileScreen} />
+      <Stack.Screen name="Ratings" component={RatingsScreen} />
       <Stack.Screen name="Agrega Tu Primer Viaje" component={AddTripScreen} />
       <Stack.Screen name="Mis Viajes" component={MyTripsScreen} />
       <Stack.Screen name="Chat" component={ChatDetailScreen} />

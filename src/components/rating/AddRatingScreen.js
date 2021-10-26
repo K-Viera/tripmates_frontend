@@ -54,6 +54,7 @@ class AddRatingScreen extends Component {
           value={this.state.rating}
           placeholder="Calificación"
           style={styles.inputText}
+          keyboardType="numeric"
         />
         <Button
           title={'Registrar Rating'}
