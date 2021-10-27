@@ -119,7 +119,7 @@ class EditTripScreen extends Component {
           placeholder="to"
           style={styles.inputText}
         />
-        <Text>
+        <Text style={styles.inputText}>
           Inicio del Viaje :
           {this.state.beginDate !== ''
             ? moment(this.state.beginDate).format('YYYY-MM-DD')
@@ -129,7 +129,7 @@ class EditTripScreen extends Component {
           Fecha Inicio
         </Text>
 
-        <Text>
+        <Text style={styles.inputText}>
           Finalización Del Viaje :
           {this.state.finishDate !== ''
             ? moment(this.state.finishDate).format('YYYY-MM-DD')
