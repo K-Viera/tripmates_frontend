@@ -114,7 +114,7 @@ const TripDetailScreen = props => {
           horizontal={true}
           data={viaje.Interests}
           keyExtractor={item => item}
-          renderItem={({item}) => <Text style={styles.linkText}>{item}      </Text>}
+          renderItem={({item}) => <Text style={styles.linkText}>    {item}    </Text>}
         />
       </View>
 
