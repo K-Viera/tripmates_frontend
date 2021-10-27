@@ -1,9 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  FlatList,
+  VirtualizedList,
+} from 'react-native';
 import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
 import moment from 'moment';
+import RatingItem from '../rating/RatingItem';
 
 const TripDetailScreen = props => {
   const [viaje, setViaje] = useState({});
@@ -75,12 +84,16 @@ const TripDetailScreen = props => {
     setUser(res.data.data);
   };
 
+  const goProfile = user => {
+    props.navigation.navigate('Perfil', {user});
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.backgroundImage}>
         <Image
           style={styles.imageContainer}
-          source={{uri: viaje.user !== undefined ? viaje.user.avatar : ''}}
+          source={{uri: viaje.user !== undefined ? viaje.user.avatar : null}}
         />
         <Text style={styles.textn}>
           {viaje.user !== undefined ? viaje.user.name : ''}
@@ -93,6 +106,20 @@ const TripDetailScreen = props => {
       </Text>
       <Text style={styles.text}>
         Fecha regreso: {moment(viaje.finishDate).format('MMMM DD YYYY')}
+      </Text>
+
+      <Text style={styles.text}>Intereses</Text>
+      <View style={styles.view}>
+        <FlatList
+          horizontal={true}
+          data={viaje.Interests}
+          keyExtractor={item => item}
+          renderItem={({item}) => <Text style={styles.linkText}>    {item}    </Text>}
+        />
+      </View>
+
+      <Text style={styles.btnText} onPress={() => goProfile(viaje.user._id)}>
+        Ver Perfil
       </Text>
       {mine !== undefined && mine === true && (
         <View>
@@ -112,6 +139,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+  },
+  view: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   btn: {
     padding: 8,
@@ -135,6 +166,7 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     textAlign: 'center',
     fontStyle: 'italic',
+    fontSize: 20,
   },
   imageContainer: {
     backgroundColor: Colors.lightblue,
