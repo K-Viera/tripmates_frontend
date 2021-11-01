@@ -4,15 +4,19 @@ import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
 import {useLogin} from '../../libs/LoginProvider';
+import {useIsFocused} from '@react-navigation/native';
 
 const MyProfileScreen = props => {
   const {setIsLoggedIn} = useLogin();
 
   const [user, setUser] = useState({});
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
+    console.log('CONSTRUCTOR');
     getProfile();
-  }, []);
+  }, [isFocused]);
 
   const getProfile = async () => {
     const url = 'https://still-shore-58656.herokuapp.com/api/user/mine';

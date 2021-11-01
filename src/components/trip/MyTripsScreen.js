@@ -10,13 +10,16 @@ import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import TripItem from '../trip/TripItem';
 import axios from 'axios';
+import {useIsFocused} from '@react-navigation/native';
 const MyTripsScreen = props => {
+  const isFocused = useIsFocused();
+
   const [loading, setLoading] = useState([]);
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
     getMyTrips();
-  }, []);
+  }, [isFocused]);
 
   const getMyTrips = async () => {
     setLoading(true);

@@ -9,14 +9,17 @@ import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
 import FavItem from './FavItem';
+import {useIsFocused} from '@react-navigation/native';
 
 const FavScreen = props => {
+  const isFocused = useIsFocused();
+
   const [loading, setLoading] = useState([]);
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
     getFeed();
-  }, []);
+  }, [isFocused]);
 
   const getFeed = async () => {
     setLoading(true);

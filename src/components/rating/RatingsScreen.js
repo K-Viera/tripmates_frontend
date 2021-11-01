@@ -4,13 +4,16 @@ import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
 import RatingItem from './RatingItem';
+import {useIsFocused} from '@react-navigation/native';
 const RatingsScreen = props => {
+  const isFocused = useIsFocused();
+
   const [loading, setLoading] = useState([]);
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
     getMyRatings();
-  }, []);
+  }, [isFocused]);
 
   const getMyRatings = async () => {
     const {user} = props.route.params;

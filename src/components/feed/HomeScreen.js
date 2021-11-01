@@ -10,14 +10,17 @@ import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
 import UserItem from './UserItem';
+import {useIsFocused} from '@react-navigation/native';
 
 const HomeScreen = props => {
+  const isFocused = useIsFocused();
+
   const [loading, setLoading] = useState(false);
   const [feedTrips, setFeedTrips] = useState([]);
 
   useEffect(() => {
     getFeed();
-  }, []);
+  }, [isFocused]);
 
   const getFeed = async () => {
     const myTrips = await getMyTrips();

@@ -4,8 +4,11 @@ import Colors from '../../res/colors';
 import storage from '../../libs/storage';
 import axios from 'axios';
 import ChatItem from './ChatItem';
+import {useIsFocused} from '@react-navigation/native';
 
 const ChatScreen = props => {
+  const isFocused = useIsFocused();
+
   const [loading, setLoading] = useState([]);
   const [chats, setChats] = useState([]);
   const [user, setUser] = useState([]);
@@ -13,7 +16,7 @@ const ChatScreen = props => {
   useEffect(() => {
     getChats();
     getUser();
-  }, []);
+  }, [isFocused]);
 
   const getChats = async () => {
     setLoading(true);

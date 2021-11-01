@@ -34,8 +34,13 @@ class AddRatingScreen extends Component {
     Alert.alert('Agregar Comentario', response.data.data, [
       {
         text: 'Ok',
+        onPress: () => this.goToProfile(user),
       },
     ]);
+  };
+
+  goToProfile = user => {
+    this.props.navigation.navigate('Perfil', {user});
   };
 
   render() {
